@@ -10,22 +10,46 @@
 
 ## 1. Risk per trade
 
-**A+ setup:** ____ % of account <!-- TODO: ask me -->
-**B-grade setup:** ____ % of account <!-- TODO: ask me -->
-**In dollars on the $50K challenge:** $____ <!-- derived, filled once the % is set -->
+**Risk depends on the phase of the account. One number per phase, never a range.**
+
+| Phase | Risk per A+ trade | 1R on $50,000 |
+|---|---|---|
+| Evaluation / challenge | **1.0 %** | **$500** |
+| Funded | **0.5 %** | **$250** |
+
+**B-grade setup:** ____ % <!-- TODO: ask me — a multiple of the A+ number for the current phase, e.g. 0.5x -->
 
 Which account balance do I calculate % from — starting balance, current balance, or high-water mark? <!-- TODO: ask me -->
 
+<!-- ARITHMETIC, for my eyes at 22:00: -->
+<!-- Evaluation, 1% = $500/trade. 6 consecutive losses = $3,000 = 6% of the account. -->
+<!-- Once risk/prop-firm-rules.md is verified, check that 1% x (max consecutive losses, §4) -->
+<!-- still sits inside the firm's OVERALL drawdown with the buffer I chose. If it does not, -->
+<!-- either the risk % comes down or the consecutive-loss cap comes down. It cannot be both. -->
+
 ## 2. Max daily loss
 
-**In R:** ____ R <!-- TODO: ask me -->
-**In $:** $____ <!-- TODO: ask me -->
-**Whichever comes first.**
+**ONE FULL STOP-OUT. That is the whole rule.**
 
-When this is hit: I close the platform. Not "one more small one." Not "a scalp to get back to flat."
-The assistant stops all trade analysis for the day — see Prime Directive rule 6 in `CLAUDE.md`.
+| Phase | Max daily loss | In R | In $ |
+|---|---|---|---|
+| Evaluation | 1 losing trade | **1.0 R** | **$500** |
+| Funded | 1 losing trade | **1.0 R** | **$250** |
+
+When the first stop is hit, the trading day is over. Not a smaller size. Not a scalp to get back to flat.
+Not "the setup after this one is the real one." The platform gets closed.
+
+The assistant stops all trade analysis for the rest of that day — see Prime Directive rule 6 in `CLAUDE.md`.
+It will not negotiate, and arguing with it is itself the signal that the rule is working.
+
+<!-- WHAT THIS RULE IMPLIES — read it so I am not surprised at 22:00: -->
+<!--  * Two losses in one day is IMPOSSIBLE under this rule. The consecutive-loss rule in §4 -->
+<!--    is therefore a MULTI-DAY rule: losses on consecutive days, not consecutive trades. -->
+<!--  * Most losing days end after a single trade. That is the design, not a malfunction. -->
+<!--  * A day can still contain several trades if none of them lose. §5 caps that. -->
 
 Does an open winning position count toward this at unrealised value? <!-- TODO: ask me -->
+Does a breakeven scratch or a partial loss (exited early, less than 1R) end the day? <!-- TODO: ask me -->
 
 ## 3. Max weekly loss
 
