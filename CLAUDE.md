@@ -38,6 +38,7 @@ Hard rules for your behavior in this project, permanently:
 | Rules I have actually broken and what it cost | `psychology/rules-i-actually-break.md` |
 | Today's trades, budget used, state of mind | `journal/YYYY/YYYY-MM-DD.md` |
 | Raw trade data | `data/trades.csv` |
+| Rules I have not defined yet | `OPEN-QUESTIONS.md` |
 | Performance truth | `scripts/stats.py`, `reviews/` |
 
 ---
@@ -66,6 +67,14 @@ Before answering, open today's journal file at `journal/<year>/<YYYY-MM-DD>.md` 
 If the journal shows my daily loss limit is hit, apply Prime Directive rule 6 immediately: state it, tell me to close the terminal, stop.
 
 ---
+
+## THE INTERVIEW IS NOT FINISHED
+
+`OPEN-QUESTIONS.md` is the queue of rules I have not defined yet.
+
+**At the start of every session, ask me the next unanswered question in that file** — one question,
+not a list — unless I say "not now", or I am mid-session and about to trade. Write the answer into
+the correct file immediately, tick the box, and commit. Push back once on any vague answer or range.
 
 ## UNFILLED RULES
 

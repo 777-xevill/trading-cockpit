@@ -102,8 +102,21 @@ Must match `strategy/00-core-rules.md` §3. If the two ever disagree, this file 
 
 ## 6. Max concurrent positions
 
+**UNDEFINED — deliberately deferred on 2026-08-24. Ask me again.**
+
 **Number:** ____ <!-- TODO: ask me -->
 **Max total open risk at any moment:** ____ R <!-- TODO: ask me -->
+
+Until this is answered, `/checktrade` returns `INCOMPLETE: concurrent-position rule undefined`
+for any proposed second simultaneous position. It does not assume, and it does not default to 1.
+
+<!-- THE ARITHMETIC I STILL HAVE TO RESOLVE: -->
+<!--   Two positions at 1R each, both stopped out = -2R in one day. -->
+<!--   That directly violates §2, which caps the day at -1R. -->
+<!--   So exactly one of these has to be true: -->
+<!--     (a) one position at a time, or -->
+<!--     (b) two positions at 0.5R each, or -->
+<!--     (c) §2 gets raised, which I have already decided against. -->
 
 ## 7. Correlation rule
 
