@@ -53,10 +53,22 @@ Does a breakeven scratch or a partial loss (exited early, less than 1R) end the 
 
 ## 3. Max weekly loss
 
-**In R:** ____ R <!-- TODO: ask me -->
-**In $:** $____ <!-- TODO: ask me -->
+**THREE LOSING DAYS. The week is then over.**
 
-When hit: <!-- TODO: ask me — stop until Monday? Reduce size? Mandatory review before returning? -->
+| Phase | Max weekly loss | In R | In $ |
+|---|---|---|---|
+| Evaluation | 3 losing days | **3.0 R** | **$1,500** |
+| Funded | 3 losing days | **3.0 R** | **$750** |
+
+Because §2 allows only one loss per day, three losses = three separate days. They do not have to be consecutive.
+
+When hit: **no trading until Monday.** Not reduced size. Not "just watching with a small one on."
+Before returning on Monday I must run `/review` and write down what the three losses had in common.
+
+<!-- Worst possible week under §2 + §3 is -3R = -3% of the account in evaluation. -->
+<!-- Cross-check this against the firm's OVERALL drawdown once prop-firm-rules.md is verified. -->
+
+<!-- TODO: ask me — does a losing day where I exited early for less than 1R count as a losing day? -->
 
 ## 4. Max consecutive losses before shutdown
 
@@ -66,8 +78,27 @@ When hit: <!-- TODO: ask me — stop until Monday? Reduce size? Mandatory review
 
 ## 5. Max trades per day
 
-**Number:** ____ <!-- TODO: ask me -->
-Must match `strategy/00-core-rules.md` section 3. If the two ever disagree, this file wins and the other gets fixed.
+**TWO. Hard cap, win or lose.**
+
+| Phase | Max trades per day |
+|---|---|
+| Evaluation | **2** |
+| Funded | **2** <!-- TODO: ask me — confirm this stays 2 once funded --> |
+
+Combined with §2 (one loss ends the day), the day resolves like this:
+
+| | Result | Outcome |
+|---|---|---|
+| Trade 1 | **Loses** | Day over. One trade taken. |
+| Trade 1 | Wins or scratches | Trade 2 is permitted. |
+| Trade 2 | Anything | Day over regardless. |
+
+**A losing day is always a one-trade day.** There is no path to two losses in a day.
+
+Must match `strategy/00-core-rules.md` §3. If the two ever disagree, this file wins and the other gets fixed.
+
+<!-- TODO: ask me — does a breakeven scratch count against the 2? -->
+<!-- TODO: ask me — if trade 1 wins, am I allowed to stop for the day instead of taking trade 2? -->
 
 ## 6. Max concurrent positions
 
@@ -102,9 +133,28 @@ Must match `strategy/00-core-rules.md` section 3. If the two ever disagree, this
 
 ## 10. Minimum R:R
 
-**Number:** ____ : 1 <!-- TODO: ask me -->
+**1:2 — risk 1 to make 2. Minimum target is 2.0R.**
+
 Measured to the **first** target, not the dream target.
-If the nearest logical target does not pay this, the trade does not exist.
+If the nearest logical target does not pay 2.0R, the trade does not exist. This is a hard filter, not a preference.
+
+| Phase | 1R | Minimum target |
+|---|---|---|
+| Evaluation | $500 | **$1,000** |
+| Funded | $250 | **$500** |
+
+**Stop distance is set by structure first, then size is solved from it** — never the reverse.
+Never shrink a stop to manufacture a 2R target. That is how a 2R trade becomes a 0.4R trade with four times the size.
+
+<!-- WHAT THIS MEANS FOR THE CHALLENGE MATH: -->
+<!--   Best possible day  = 2 winners = +4R = +4% -->
+<!--   Worst possible day = 1 loser   = -1R = -1% -->
+<!--   Worst possible week = -3R = -3% (§3) -->
+<!--   Break-even win rate at 2R with no costs = 33.3%. Above that, the edge is positive. -->
+<!-- TODO: verify the profit target on FundedNext, then divide by 2R to get the minimum -->
+<!-- number of NET winning trades needed to pass. That number is the real plan, not "2 trades". -->
+
+<!-- TODO: ask me — is 2.0R the minimum for BOTH a-plus and b-grade, or is a-plus higher? -->
 
 ## 11. Recovery / size-up rules
 

@@ -40,7 +40,7 @@
 <!-- TODO: ask me -->
 <!-- One number. Not "2 or 3". -->
 
-**Hard cap:** ____ trades per day, win or lose.
+**Hard cap:** **2** trades per day, win or lose. See `risk/risk-rules.md` §5 — that file is authoritative.
 
 **Does a scratch/breakeven trade count against the cap?** <!-- TODO: ask me -->
 
