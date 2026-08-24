@@ -77,15 +77,23 @@ When the limit is hit: the platform gets closed. Not a smaller size. Not a scalp
 The assistant stops all trade analysis for the rest of that day — Prime Directive rule 6 in `CLAUDE.md`.
 Arguing with it is itself the signal that the rule is working.
 
-**Does a winning trade increase the day's remaining loss budget?** <!-- TODO: ask me -->
-<!-- Two readings of "$500 of losses total", and they behave very differently: -->
-<!--   (a) LOSSES DO NOT OFFSET. Trade 1 wins +$1,000, trade 2 loses −$500 -> limit hit, day over -->
-<!--       at +$500 net. Protects profit. -->
-<!--   (b) NET P&L. Trade 1 wins +$1,000, so the day can fall to −$500 net, meaning trade 2 could -->
-<!--       lose $1,500 before the limit triggers. This is the "playing with house money" version -->
-<!--       and it is how good days become bad days. -->
-<!-- Not writing either one until I say which. Until then /checktrade uses (a), the conservative -->
-<!-- reading, and says so in its output. -->
+**Does a winning trade increase the day's remaining loss budget? NO.**
+
+The loss budget is $500 per day and it never grows. Profit does not become risk.
+
+| Trade 1 | Trade 2 may risk | Day ends at |
+|---|---|---|
+| +$1,000 | $500 | +$500 net if trade 2 stops out |
+| +$300 | $500 | −$200 net if trade 2 stops out |
+| $0 | $500 | −$500 net if trade 2 stops out |
+| −$180 | $320 | −$500 net if trade 2 stops out |
+| −$500 | nothing, day over | −$500 |
+
+**The worst possible day is −$500. The best is +$2,000.** Both are now hard numbers, not intentions.
+
+<!-- The rejected version, 2026-08-24: letting the day run to −$500 NET, so a +$1,000 morning -->
+<!-- would permit trade 2 to lose $1,500. That is the "house money" rule and it is how a green -->
+<!-- day becomes a red one. Rejected deliberately. Do not reintroduce it mid-session. -->
 
 **Does an open position count toward this at unrealised value?**
 Resolved by structure, not by preference: §6 allows one position at a time and the stop sits inside
