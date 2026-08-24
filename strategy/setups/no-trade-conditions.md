@@ -55,17 +55,22 @@ This list overrides `a-plus.md`. There is no such thing as a setup good enough t
 
 ## Process
 
-<!-- TODO: ask me -->
-<!-- Prompts: -->
+From my strategy document, 2026-08-24 — these are stated rules, not prompts:
+
+- [ ] Entering at the 09:30 open without allowing 10-15 minutes of manipulation to develop
+- [ ] No marked liquidity has been hit
+- [ ] BOS confirmed by a **wick** close rather than a **body** close
+- [ ] The liquidity level was already interacted with by a forward candle (not fresh)
+- [ ] Outside the permitted execution window
+- [ ] Chart prep not complete before 09:30 (4H, 1H, Asia, London levels unmarked)
+- [ ] TradingView timezone is not UTC-4 New York
+
+<!-- TODO: ask me — still needed, and not answerable from the strategy document: -->
 <!-- - No /premarket done today? -->
 <!-- - Cannot name the setup? -->
 <!-- - Cannot state the invalidation level out loud before entering? -->
-<!-- - Chasing after price already moved away from the level? -->
+<!-- - Chasing after price has already moved away from the level? -->
 <!-- - Trade idea came from someone else's chart or a Discord/Twitter post? -->
-
-- [ ]
-- [ ]
-- [ ]
 
 ---
 

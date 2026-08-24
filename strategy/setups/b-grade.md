@@ -1,5 +1,13 @@
 # Setup: B-grade <!-- TODO: ask me — name it -->
 
+> **THIS SETUP DOES NOT EXIST YET.**
+> My strategy document (2026-08-24) describes exactly one setup — see `a-plus.md`.
+> Nothing below is mine; it is the blank template.
+> `/checktrade` returns `INCOMPLETE: b-grade is undefined` if I name this setup.
+> <!-- TODO: ask me — is there a second, lower-grade setup at all? "No" is a fine answer, -->
+> <!-- and if it is the answer this file gets deleted rather than left lying around. -->
+
+
 > This is a real setup at REDUCED risk. Its whole purpose is to stop me from calling a B-grade trade an A+ so I can size up.
 > <!-- TODO: ask me — what risk multiple of A+ do I take on B-grade? A single number, e.g. 0.5x. -->
 > <!-- TODO: ask me — am I allowed to take B-grade at all after a loss? -->

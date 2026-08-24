@@ -14,11 +14,20 @@
 
 ## Setup invalidation (idea forming, not yet entered)
 
-**A setup I am waiting on is void when:** <!-- TODO: ask me -->
+From my strategy document, 2026-08-24. A setup I am waiting on is void when:
 
-**Time-based void: if the trigger has not fired within ____ minutes of the sweep, the idea is dead.** <!-- TODO: ask me -->
+1. **No marked liquidity has been hit** by the time the execution window closes.
+2. **The reaction never comes.** A liquidity hit alone is not a setup; without opposite-direction
+   movement there is nothing to confirm.
+3. **BOS never confirms with a body close.** A wick through the level is not a BOS.
+4. **The level was already interacted with by a forward candle** and is therefore no longer fresh
+   liquidity — see the forward-candle interaction rule in `strategy/01-market-structure.md`.
+5. **Time runs out** — the execution window ends.
+   <!-- TODO: ask me — the window end time is still undefined. -->
 
----
+**Time-based void: if BOS has not confirmed within ____ minutes of the sweep, the idea is dead.**
+<!-- TODO: ask me — the strategy document never sets this. Without it, a 09:42 sweep could -->
+<!-- justify an entry at 11:30 on the same "idea", which is how a setup becomes a story. -->
 
 ## Trade invalidation (position is open)
 
