@@ -68,7 +68,7 @@ exits that add up to it. It also ends when the 2-trade cap in §5 is used, which
 | Full stop, −$500 | $0 | **No. Day over.** |
 | Early exit, −$180 | $320 | Yes, but stop must risk ≤ $320 |
 | Breakeven, $0 | $500 | Yes, full size |
-| Winner, +$1,000 | see note below | Yes |
+| Winner, +$750 | see note below | Yes |
 
 **If trade 2 is taken with a reduced budget, the position is sized to that reduced number** — see
 `risk/sizing.md`. A $320 budget does not permit a $500 stop at full size. That is the whole point.
@@ -83,16 +83,17 @@ The loss budget is $500 per day and it never grows. Profit does not become risk.
 
 | Trade 1 | Trade 2 may risk | Day ends at |
 |---|---|---|
-| +$1,000 | $500 | +$500 net if trade 2 stops out |
+| +$750 | $500 | +$250 net if trade 2 stops out |
 | +$300 | $500 | −$200 net if trade 2 stops out |
 | $0 | $500 | −$500 net if trade 2 stops out |
 | −$180 | $320 | −$500 net if trade 2 stops out |
 | −$500 | nothing, day over | −$500 |
 
-**The worst possible day is −$500. The best is +$2,000.** Both are now hard numbers, not intentions.
+**The worst possible day is −$500. The best is +$1,500** (2 winners at 1.5R, §10).
+Both are hard numbers, not intentions.
 
-<!-- The rejected version, 2026-08-24: letting the day run to −$500 NET, so a +$1,000 morning -->
-<!-- would permit trade 2 to lose $1,500. That is the "house money" rule and it is how a green -->
+<!-- The rejected version, 2026-08-24: letting the day run to −$500 NET, so a +$750 morning -->
+<!-- would permit trade 2 to lose $1,250. That is the "house money" rule and it is how a green -->
 <!-- day becomes a red one. Rejected deliberately. Do not reintroduce it mid-session. -->
 
 **Does an open position count toward this at unrealised value?**
@@ -253,33 +254,21 @@ and intentions do not survive contact with a position that is losing.
 <!-- the expectancy in scripts/stats.py. All of it assumes 1R means what it says. -->
 <!-- There are NO exceptions written here, deliberately, so that none can be argued for at 01:00. -->
 
-Moving the stop **toward** profit is a different action and is governed below.
+**A stop NEVER moves to breakeven either. The stop does not move at all.**
 
-**When may a stop move to breakeven? AT +1.5R. Not before.**
+Set at entry from structure, and left alone until it is hit or the target is hit. There is no
+breakeven step, no partial protection, no management. Stop or target. Nothing in between.
 
-At the 1:2 minimum in §10 the target is +2.0R, so the stop only moves once the trade is **75% of
-the way to target**. Before +1.5R the original stop stands, whatever the trade looks like.
+<!-- CHANGED 2026-08-24: a +1.5R breakeven trigger was written, then removed the same session -->
+<!-- when the target itself dropped to 1.5R (§10) — the trigger and the target became the same -->
+<!-- price, so the rule could never fire. Removing it entirely is the honest resolution. -->
+<!-- CONSEQUENCE: the stop is now completely static. Nothing about a live position is discretionary. -->
+<!-- There is exactly one decision per trade, and it happens before entry. -->
 
-**Worked example (evaluation, 1R = $500):**
+**Trailing rule: none.** A trailing stop is stop movement, and the stop does not move.
 
-| | Price | P&L |
-|---|---|---|
-| Entry, long NQ | 20100 | — |
-| Original stop (20 pts) | 20080 | −$500 = −1.0R |
-| **Breakeven trigger at +1.5R** | **20130** | **+$750** |
-| Target (40 pts) | 20140 | +$1,000 = +2.0R |
-
-At 20130 the stop moves from 20080 to 20100. Not at 20120. Not "when it feels safe."
-The trigger is a price I can calculate before I enter, and it goes in the journal with the entry.
-
-<!-- WHY LATE RATHER THAN EARLY: a breakeven stop does not only save losers, it kills winners that -->
-<!-- retrace before running. Moving at +1R takes me out of trades that would have paid 2R, and at a -->
-<!-- 1:2 R:R those winners are the entire edge. At +1.5R the trade is nearly done, so the rule -->
-<!-- rarely fires — which is the point. It protects the trades that were already almost right. -->
-<!-- Check this against scripts/stats.py in /review: if r_actual = 0 rows start piling up, the -->
-<!-- trigger is too early and gets moved, IN REVIEW, never mid-session. -->
-
-**Trailing rule, if any:** <!-- TODO: ask me -->
+**Summary of §8 in one line:** the stop is placed once, from structure, before entry, as a live
+broker order — and is never touched again in either direction.
 
 ## 9. Adding to positions
 
@@ -310,28 +299,36 @@ comparable and `scripts/stats.py` expectancy honest.
 
 ## 10. Minimum R:R
 
-**1:2 — risk 1 to make 2. Minimum target is 2.0R.**
+**1:1.5 — risk 1 to make 1.5. Minimum target is 1.5R.**
 
 Measured to the **first** target, not the dream target.
-If the nearest logical target does not pay 2.0R, the trade does not exist. This is a hard filter, not a preference.
+If the nearest logical target does not pay 1.5R, the trade does not exist. Hard filter, not a preference.
 
-| Phase | 1R | Minimum target |
+| Phase | 1R risked | Minimum target |
 |---|---|---|
-| Evaluation | $500 | **$1,000** |
-| Funded | $250 | **$500** |
+| Evaluation | $500 | **$750** |
+| Funded | $250 | **$375** |
 
 **Stop distance is set by structure first, then size is solved from it** — never the reverse.
-Never shrink a stop to manufacture a 2R target. That is how a 2R trade becomes a 0.4R trade with four times the size.
+Never shrink a stop to manufacture a 1.5R target. That is how a 1.5R trade becomes a 0.3R trade
+with five times the size.
+
+<!-- CHANGED 2026-08-24, same session it was set at 1:2. Lowered to 1:1.5. -->
+<!-- THE COST OF THAT CHANGE, in numbers: -->
+<!--   Break-even win rate at 1:2   = 33.3%  (need ~3.3 winners in 10) -->
+<!--   Break-even win rate at 1:1.5 = 40.0%  (need 4 winners in 10) -->
+<!-- A closer target should produce a higher hit rate, which is the trade being made here. -->
+<!-- /review must check that it actually did: if the win rate in scripts/stats.py sits below 40%, -->
+<!-- this rule is losing money and goes back to 1:2. That check happens in review, never mid-session. -->
 
 <!-- WHAT THIS MEANS FOR THE CHALLENGE MATH: -->
-<!--   Best possible day  = 2 winners = +4R = +4% -->
-<!--   Worst possible day = 1 loser   = -1R = -1% -->
-<!--   Worst possible week = -3R = -3% (§3) -->
-<!--   Break-even win rate at 2R with no costs = 33.3%. Above that, the edge is positive. -->
-<!-- TODO: verify the profit target on FundedNext, then divide by 2R to get the minimum -->
-<!-- number of NET winning trades needed to pass. That number is the real plan, not "2 trades". -->
+<!--   Best possible day  = 2 winners = +3.0R = +$1,500 -->
+<!--   Worst possible day = -1.0R = -$500 (§2) -->
+<!--   Worst possible week = -3.0R = -$1,500 (§3) -->
+<!-- TODO: verify the profit target on FundedNext, then divide by 1.5R to get the minimum -->
+<!-- number of NET winning trades needed to pass. That number is the real plan. -->
 
-<!-- TODO: ask me — is 2.0R the minimum for BOTH a-plus and b-grade, or is a-plus higher? -->
+<!-- TODO: ask me — is 1.5R the minimum for BOTH a-plus and b-grade, or is a-plus higher? -->
 
 ## 11. Recovery / size-up rules
 
