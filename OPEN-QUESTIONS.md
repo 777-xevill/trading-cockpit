@@ -34,6 +34,7 @@ Rules for working through this file:
 - [x] Correlation — **NQ/ES/US100 are one instrument**; no same-direction re-entry after a loss → §7
 - [x] Consecutive losses — **no separate streak rule**, §3 weekly limit covers it → §4
 - [x] Recovery sizing — **risk never changes**, $500 always; never size up to recover → §11
+- [x] Breakeven stop — **at +1.5R only**, never earlier → §8
 
 ---
 
@@ -43,7 +44,6 @@ Rules for working through this file:
 - [ ] Does a losing day of less than 1R count toward the 3-day weekly limit? → §3
 - [ ] Does the correlation re-entry bar apply after a WIN as well as a loss? → §7
 - [ ] Is XAU/USD a separate bucket from the index group, in my experience? → §7
-- [ ] When exactly may a stop move to breakeven? A single objective trigger → §8
 - [ ] Trailing stop rule, if any → §8
 - [ ] Do I take partial exits (scale out), or all-out at one target? → §9 / setup files
 - [ ] Is 2.0R the minimum for both a-plus and b-grade, or is a-plus higher? → §10

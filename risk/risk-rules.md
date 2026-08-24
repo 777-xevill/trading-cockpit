@@ -255,10 +255,29 @@ and intentions do not survive contact with a position that is losing.
 
 Moving the stop **toward** profit is a different action and is governed below.
 
-**When may a stop move to breakeven?** <!-- TODO: ask me -->
-<!-- Needs a single objective trigger, e.g. "at +1R". Not "when it looks safe". -->
-<!-- Note the cost: a breakeven stop converts losers into scratches AND winners into scratches. -->
-<!-- It is not free, and at a 1:2 minimum R:R it can quietly destroy the edge. -->
+**When may a stop move to breakeven? AT +1.5R. Not before.**
+
+At the 1:2 minimum in §10 the target is +2.0R, so the stop only moves once the trade is **75% of
+the way to target**. Before +1.5R the original stop stands, whatever the trade looks like.
+
+**Worked example (evaluation, 1R = $500):**
+
+| | Price | P&L |
+|---|---|---|
+| Entry, long NQ | 20100 | — |
+| Original stop (20 pts) | 20080 | −$500 = −1.0R |
+| **Breakeven trigger at +1.5R** | **20130** | **+$750** |
+| Target (40 pts) | 20140 | +$1,000 = +2.0R |
+
+At 20130 the stop moves from 20080 to 20100. Not at 20120. Not "when it feels safe."
+The trigger is a price I can calculate before I enter, and it goes in the journal with the entry.
+
+<!-- WHY LATE RATHER THAN EARLY: a breakeven stop does not only save losers, it kills winners that -->
+<!-- retrace before running. Moving at +1R takes me out of trades that would have paid 2R, and at a -->
+<!-- 1:2 R:R those winners are the entire edge. At +1.5R the trade is nearly done, so the rule -->
+<!-- rarely fires — which is the point. It protects the trades that were already almost right. -->
+<!-- Check this against scripts/stats.py in /review: if r_actual = 0 rows start piling up, the -->
+<!-- trigger is too early and gets moved, IN REVIEW, never mid-session. -->
 
 **Trailing rule, if any:** <!-- TODO: ask me -->
 
