@@ -148,7 +148,23 @@ After trade 2 closes, the day is over regardless of outcome.
 
 Must match `strategy/00-core-rules.md` §3. If the two ever disagree, this file wins and the other gets fixed.
 
-<!-- TODO: ask me — does a breakeven scratch count against the 2? -->
+**Does a breakeven scratch count against the 2? NO. Scratches are free.**
+
+A trade closed at breakeven does not use a trade slot. I may enter again.
+The $500 loss budget in §2 is untouched by a scratch, because a scratch costs nothing.
+
+<!-- KNOWN LOOPHOLE, written down deliberately so I cannot pretend it surprised me: -->
+<!-- This is the most stretchable rule in the file. The failure mode is that "scratch" grows: -->
+<!-- −$40 gets called a scratch to buy a third entry, then −$90, and the 2-trade cap stops existing. -->
+<!-- If /review ever shows days with more than 2 entries, this rule is the reason and it gets cut. -->
+
+**What exactly counts as a scratch?** <!-- TODO: ask me -->
+<!-- Commission and spread mean a trade exited at the entry price is never exactly $0.00. -->
+<!-- On NQ a round turn is a few dollars, so "flat" is realistically a small negative. -->
+<!-- Without a boundary this rule either never triggers, or triggers whenever I want it to. -->
+<!-- Not inventing the number. Options I have to choose between: exact $0.00 only; -->
+<!-- costs-only (fees and spread, no adverse move); or a fixed dollar band I name. -->
+
 <!-- TODO: ask me — if trade 1 wins, am I allowed to stop for the day instead of taking trade 2? -->
 
 ## 6. Max concurrent positions
