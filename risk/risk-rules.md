@@ -102,21 +102,23 @@ Must match `strategy/00-core-rules.md` §3. If the two ever disagree, this file 
 
 ## 6. Max concurrent positions
 
-**UNDEFINED — deliberately deferred on 2026-08-24. Ask me again.**
+**ONE. Never two open at the same time.**
 
-**Number:** ____ <!-- TODO: ask me -->
-**Max total open risk at any moment:** ____ R <!-- TODO: ask me -->
+| Field | Value |
+|---|---|
+| Max concurrent positions | **1** |
+| Max total open risk at any moment | **1.0 R** ($500 evaluation / $250 funded) |
 
-Until this is answered, `/checktrade` returns `INCOMPLETE: concurrent-position rule undefined`
-for any proposed second simultaneous position. It does not assume, and it does not default to 1.
+Trade 2 may only be opened after trade 1 is **closed**. Not "nearly closed", not "at breakeven with
+a runner on". Closed. Flat. Then, and only then, does a second trade exist as a possibility.
 
-<!-- THE ARITHMETIC I STILL HAVE TO RESOLVE: -->
-<!--   Two positions at 1R each, both stopped out = -2R in one day. -->
-<!--   That directly violates §2, which caps the day at -1R. -->
-<!--   So exactly one of these has to be true: -->
-<!--     (a) one position at a time, or -->
-<!--     (b) two positions at 0.5R each, or -->
-<!--     (c) §2 gets raised, which I have already decided against. -->
+This is what makes §2 structurally safe rather than merely intended: with one position at a time,
+**it is arithmetically impossible to lose more than 1R in a day by accident.** The only way to breach
+the daily limit is to deliberately re-enter after a loss, which is a separate and more obvious violation.
+
+<!-- The alternative I rejected on 2026-08-24: two positions at 0.5R each. -->
+<!-- Rejected because half-size sizing under pressure at 22:00 is where arithmetic errors live, -->
+<!-- and because it halves the payout on the one good setup to fund a second, worse one. -->
 
 ## 7. Correlation rule
 

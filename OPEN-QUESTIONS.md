@@ -20,15 +20,13 @@ Rules for working through this file:
 - [x] Max weekly loss — **3 losing days / 3R** → §3
 - [x] Max trades per day — **2** → §5
 - [x] Minimum R:R — **1:2** → §10
+- [x] Max concurrent positions — **1** → §6
+- [x] Max total open risk — **1.0 R** (follows from one position at 1R) → §6
 
 ---
 
 ## NEXT UP — RISK (finish this section first)
 
-- [ ] **Max concurrent positions** — one at a time, or two at half size? *(deferred 2026-08-24, ask me again)*
-      → `risk/risk-rules.md` §6
-      **Until this is answered, `/checktrade` returns `INCOMPLETE: concurrent-position rule undefined` for any second simultaneous position. It does not guess.**
-- [ ] Max total open risk at any one moment, in R → §6
 - [ ] B-grade risk — what fraction of the A+ 1%? → §1
 - [ ] Which balance do I calculate % from — starting, current, or high-water mark? → §1
 - [ ] Does an open winning position count toward the daily loss at unrealised value? → §2
