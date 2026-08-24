@@ -233,9 +233,22 @@ Moving the stop **toward** profit is a different action and is governed below.
 
 ## 9. Adding to positions
 
-**Am I allowed to add to a winner?** <!-- TODO: ask me -->
-**Am I allowed to add to a loser?** <!-- TODO: ask me -->
-**If adding is allowed: max total risk after the add, and where the combined stop goes.** <!-- TODO: ask me -->
+**NO ADDING. Not to winners, not to losers, not ever.**
+
+One entry. One size. One stop. What I open with is what I close with.
+
+- **Adding to a loser** is averaging down. It converts a defined $500 risk into an undefined one and
+  makes the stop meaningless. On a challenge account with a firm drawdown behind it, this is the
+  single fastest route to failure.
+- **Adding to a winner** is not safer, only slower. It moves the average entry against me and lets a
+  reversal turn a won trade into a lost one.
+
+This rule also keeps `risk/sizing.md` honest: 1R is $500 from the moment the position opens to the
+moment it closes, so `r_actual` in `data/trades.csv` means the same thing on every row. Scaling in
+would make every statistic in `scripts/stats.py` incomparable.
+
+**Partial exits (scaling OUT) are a different action** and are governed by the target logic in the
+setup file, not here. <!-- TODO: ask me — do I take partials at all, or is it all-out at one target? -->
 
 ## 10. Minimum R:R
 

@@ -30,6 +30,7 @@ Rules for working through this file:
 - [x] Breakeven scratches — **free, do not use a trade slot** (loophole flagged in file) → §5
 - [x] 2 trades is a **cap, not a quota** — stopping after one winner is always allowed → §5
 - [x] Moving stops — **never widen, ever; stop is a live broker order** → §8
+- [x] Adding to positions — **never, winners or losers** → §9
 
 ---
 
@@ -41,7 +42,7 @@ Rules for working through this file:
 - [ ] Correlation: NQ + US100 opposite directions — allowed? ES + NQ together? XAU vs indices? → §7
 - [ ] When exactly may a stop move to breakeven? A single objective trigger → §8
 - [ ] Trailing stop rule, if any → §8
-- [ ] Adding to positions — to winners? to losers? at all? → §9
+- [ ] Do I take partial exits (scale out), or all-out at one target? → §9 / setup files
 - [ ] After a losing day, does the next day's risk change? → §11
 - [ ] Is 2.0R the minimum for both a-plus and b-grade, or is a-plus higher? → §10
 
