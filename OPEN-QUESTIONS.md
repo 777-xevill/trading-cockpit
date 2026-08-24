@@ -18,7 +18,7 @@ Rules for working through this file:
 - [x] Risk per trade — **1% evaluation / 0.5% funded** → `risk/risk-rules.md` §1
 - [x] Max daily loss — **1 loss / 1R** → §2
 - [x] Max weekly loss — **3 losing days / 3R** → §3
-- [x] Max trades per day — **2** → §5
+- [x] Max trades per day — **1** (changed from 2 on 2026-08-24) → §5
 - [x] Minimum R:R — **1:2** → §10
 - [x] Max concurrent positions — **1** → §6
 - [x] Max total open risk — **1.0 R** (follows from one position at 1R) → §6
@@ -28,10 +28,10 @@ Rules for working through this file:
 - [x] Partial/early exits — **day ends at $500 of losses cumulative**, not at one trade → §2, §5
 - [x] Wins do **not** extend the loss budget — worst day −$500, best day +$2,000 → §2
 - [x] Breakeven scratches — **free, do not use a trade slot** (loophole flagged in file) → §5
-- [x] 2 trades is a **cap, not a quota** — stopping after one winner is always allowed → §5
+- [x] The cap is a **ceiling, not a quota** — a no-trade day is a correct day → §5
 - [x] Moving stops — **never widen, ever; stop is a live broker order** → §8
 - [x] Adding to positions — **never, winners or losers** → §9
-- [x] Correlation — **NQ/ES/US100 are one instrument**; no same-direction re-entry after a loss → §7
+- [x] Correlation — **NQ/ES/US100 are one instrument**; sequential re-entry now moot under the 1-trade cap → §7
 - [x] Consecutive losses — **no separate streak rule**, §3 weekly limit covers it → §4
 - [x] Recovery sizing — **risk never changes**, $500 always; never size up to recover → §11
 - [x] Breakeven stop — **none. The stop never moves at all** → §8
@@ -43,9 +43,8 @@ Rules for working through this file:
 ## NEXT UP — RISK (finish this section first)
 
 
-- [ ] **What exactly counts as a scratch?** *(skipped 2026-08-24, ask me again)* — blocks reliable trade counting → §5
+- [ ] **What exactly counts as a scratch?** *(skipped 2026-08-24, ask me again)* — now the ONLY route to a second entry, so this is the highest-priority open item → §5
 - [ ] Does a losing day of less than 1R count toward the 3-day weekly limit? → §3
-- [ ] Does the correlation re-entry bar apply after a WIN as well as a loss? → §7
 - [ ] Is XAU/USD a separate bucket from the index group, in my experience? → §7
 - [ ] Is 1.5R the minimum for both a-plus and b-grade, or is a-plus higher? → §10
 

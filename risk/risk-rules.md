@@ -51,54 +51,41 @@ arithmetic error at 22:00.
 
 ## 2. Max daily loss
 
-**$500 OF LOSSES IN A DAY. The limit is dollars, not trades.**
+**ONE TRADE PER DAY (§5), so the day's loss is whatever that single trade did. Ceiling: $500.**
 
 | Phase | Max daily loss | In R |
 |---|---|---|
 | Evaluation | **$500** | 1.0 R |
 | Funded | **$250** | 1.0 R |
 
-The day ends the moment losses reach that figure — whether that is one full stop-out, or two partial
-exits that add up to it. It also ends when the 2-trade cap in §5 is used, whichever comes first.
+The trade closes, and the trading day is over — win, lose or scratch. There is no second decision
+to make and no budget to carry forward.
 
-**Worked examples (evaluation, 1R = $500):**
+**The full range of a day, evaluation (1R = $500):**
 
-| Trade 1 | Remaining budget | Trade 2 allowed? |
-|---|---|---|
-| Full stop, −$500 | $0 | **No. Day over.** |
-| Early exit, −$180 | $320 | Yes, but stop must risk ≤ $320 |
-| Breakeven, $0 | $500 | Yes, full size |
-| Winner, +$750 | see note below | Yes |
+| The one trade | Day ends at |
+|---|---|
+| Target hit, +1.5R | **+$750** |
+| Early exit in profit | between $0 and +$750 |
+| Scratch | $0 |
+| Early exit at a loss | between $0 and −$500 |
+| Full stop | **−$500** |
 
-**If trade 2 is taken with a reduced budget, the position is sized to that reduced number** — see
-`risk/sizing.md`. A $320 budget does not permit a $500 stop at full size. That is the whole point.
+**Worst possible day −$500. Best possible day +$750.** Both are hard numbers, not intentions.
 
-When the limit is hit: the platform gets closed. Not a smaller size. Not a scalp to get back to flat.
-The assistant stops all trade analysis for the rest of that day — Prime Directive rule 6 in `CLAUDE.md`.
-Arguing with it is itself the signal that the rule is working.
+Wins do not create a budget to lose later, because there is no later. Profit never becomes risk.
 
-**Does a winning trade increase the day's remaining loss budget? NO.**
+When the trade closes: the platform gets closed. Not a scalp to get back to flat, not "one more
+because the first was a scratch". The assistant stops all trade analysis for the rest of that day —
+Prime Directive rule 6 in `CLAUDE.md`. Arguing with it is itself the signal that the rule is working.
 
-The loss budget is $500 per day and it never grows. Profit does not become risk.
-
-| Trade 1 | Trade 2 may risk | Day ends at |
-|---|---|---|
-| +$750 | $500 | +$250 net if trade 2 stops out |
-| +$300 | $500 | −$200 net if trade 2 stops out |
-| $0 | $500 | −$500 net if trade 2 stops out |
-| −$180 | $320 | −$500 net if trade 2 stops out |
-| −$500 | nothing, day over | −$500 |
-
-**The worst possible day is −$500. The best is +$1,500** (2 winners at 1.5R, §10).
-Both are hard numbers, not intentions.
-
-<!-- The rejected version, 2026-08-24: letting the day run to −$500 NET, so a +$750 morning -->
-<!-- would permit trade 2 to lose $1,250. That is the "house money" rule and it is how a green -->
-<!-- day becomes a red one. Rejected deliberately. Do not reintroduce it mid-session. -->
+<!-- SIMPLIFIED 2026-08-24 when the trade cap went from 2 to 1. -->
+<!-- Everything the old §2 needed — cumulative loss tracking, carried-forward budgets, sizing -->
+<!-- trade 2 to the remainder, whether wins extend the budget — is now dead. One trade cannot -->
+<!-- exceed its own stop, so the daily limit enforces itself. -->
 
 **Does an open position count toward this at unrealised value?**
-Resolved by structure, not by preference: §6 allows one position at a time and the stop sits inside
-the remaining budget, so unrealised loss cannot exceed it.
+Resolved by structure: one position, one trade, stop at 1R. Unrealised loss cannot exceed $500.
 <!-- This still matters for the FIRM's limit if FundedNext measures daily drawdown on EQUITY -->
 <!-- rather than closing balance. That is a TODO in risk/prop-firm-rules.md, not a decision for me. -->
 
@@ -139,50 +126,43 @@ in the setup file, not with a bigger shutdown.
 
 ## 5. Max trades per day
 
-**TWO. Hard cap, win or lose.**
+**ONE. One trade per day. Win, lose or scratch — when it closes, the day is over.**
 
 | Phase | Max trades per day |
 |---|---|
-| Evaluation | **2** |
-| Funded | **2** <!-- TODO: ask me — confirm this stays 2 once funded --> |
+| Evaluation | **1** |
+| Funded | **1** <!-- TODO: ask me — confirm this stays 1 once funded --> |
 
-The day ends at **two trades or $500 of losses, whichever comes first** (§2).
-
-| Trade 1 result | Day continues? |
-|---|---|
-| Full stop, −$500 | **No.** Loss budget exhausted. |
-| Partial loss, −$180 | Yes — trade 2 permitted, sized to the remaining $320 |
-| Breakeven | Yes — trade 2 permitted at full size |
-| Winner | Yes — trade 2 permitted |
-
-After trade 2 closes, the day is over regardless of outcome.
+**One is a CAP, not a quota.** Nothing obliges me to trade at all. A day with no setup is a day with
+no trade, and that is a correct day, not a wasted one. The rule sets a ceiling on activity, never a floor.
 
 Must match `strategy/00-core-rules.md` §3. If the two ever disagree, this file wins and the other gets fixed.
 
-**Does a breakeven scratch count against the 2? NO. Scratches are free.**
+<!-- CHANGED 2026-08-24 from 2 to 1, during the interview, before any live trading. -->
+<!-- WHAT THIS FIXES: with one trade a day there is no revenge trade, no "make it back", no -->
+<!-- second-guessing after a loss, and no correlated re-entry. The whole class of after-the-loss -->
+<!-- mistakes is removed structurally rather than by willpower at 01:00. -->
 
-A trade closed at breakeven does not use a trade slot. I may enter again.
-The $500 loss budget in §2 is untouched by a scratch, because a scratch costs nothing.
+### THE SCRATCH LOOPHOLE — now the only way to get a second entry
 
-<!-- KNOWN LOOPHOLE, written down deliberately so I cannot pretend it surprised me: -->
-<!-- This is the most stretchable rule in the file. The failure mode is that "scratch" grows: -->
-<!-- −$40 gets called a scratch to buy a third entry, then −$90, and the 2-trade cap stops existing. -->
-<!-- If /review ever shows days with more than 2 entries, this rule is the reason and it gets cut. -->
+A scratch does not use the day's trade (see below), so **a scratch is the single remaining path to
+trading twice in one day.** With the cap at 1 rather than 2, that loophole matters far more than it
+did, and the boundary of "scratch" is still undefined.
+
+**Does a breakeven scratch count against the 1? NO. Scratches are free.**
+
+<!-- STANDING RISK, written down so I cannot claim it surprised me: -->
+<!-- "Scratch" is undefined (see below), so in principle an unlimited number of small-loss exits -->
+<!-- could be called scratches and the one-trade cap would not exist at all. -->
+<!-- If /review ever shows a day with more than one real entry, this is the mechanism. -->
 
 **What exactly counts as a scratch? UNDEFINED — skipped on 2026-08-24. Ask me again.**
+<!-- A trade exited at the entry price is never exactly $0.00 after commission and spread. -->
+<!-- Without a boundary this rule either never fires, or fires whenever I want it to. -->
+<!-- Not inventing the number. The options are: exact $0.00 or better; costs-only; or a dollar band I name. -->
 
-Until it is defined, `/checktrade` cannot count trades reliably: it does not know whether the
-previous trade used a slot. It reports `INCOMPLETE: scratch threshold undefined` when the day's
-first trade closed at a small loss and a second is proposed. It does not pick a number for me.
-<!-- Commission and spread mean a trade exited at the entry price is never exactly $0.00. -->
-<!-- On NQ a round turn is a few dollars, so "flat" is realistically a small negative. -->
-<!-- Without a boundary this rule either never triggers, or triggers whenever I want it to. -->
-<!-- Not inventing the number. Options I have to choose between: exact $0.00 only; -->
-<!-- costs-only (fees and spread, no adverse move); or a fixed dollar band I name. -->
-
-**Two is a CAP, not a quota.** Nothing obliges me to take a second trade. Stopping after one
-winner is always permitted and never needs a reason. The rule sets a ceiling on activity, not a floor.
-
+Until it is defined, `/checktrade` returns `INCOMPLETE: scratch threshold undefined` when the day's
+trade closed at a small loss and another is proposed. It does not pick a number for me.
 
 ## 6. Max concurrent positions
 
@@ -193,14 +173,12 @@ winner is always permitted and never needs a reason. The rule sets a ceiling on 
 | Max concurrent positions | **1** |
 | Max total open risk at any moment | **1.0 R** ($500 evaluation / $250 funded) |
 
-Trade 2 may only be opened after trade 1 is **closed**. Not "nearly closed", not "at breakeven with
-a runner on". Closed. Flat. Then, and only then, does a second trade exist as a possibility.
+Since §5 caps the day at one trade, this rule is largely structural now: one trade a day cannot
+be two positions at once. It stays written down because it is what makes the cap enforceable at the
+platform level — if there is never more than one ticket open, there is nothing to reconcile.
 
-This is what makes §2 enforceable rather than merely intended: with one position at a time, the
-day's loss is the sum of at most two closed trades, and trade 2 is sized to whatever budget trade 1
-left behind. **Size trade 2 to the remaining budget and the $500 ceiling cannot be breached.**
-The two ways to breach it are both deliberate: sizing trade 2 at full risk when the budget is
-already partly spent, or re-entering after the budget is gone.
+**It becomes load-bearing again the moment §5 changes.** If the daily cap ever goes above 1, this
+is the rule that stops two positions from turning $500 of risk into $1,000.
 
 <!-- The alternative I rejected on 2026-08-24: two positions at 0.5R each. -->
 <!-- Rejected because half-size sizing under pressure at 22:00 is where arithmetic errors live, -->
@@ -218,25 +196,26 @@ ideas is the fastest way to take the same trade twice while believing I diversif
 §6 permits one open position at a time, so holding two correlated positions is impossible.
 Nothing further to decide here.
 
-### Sequential — this is the live rule
+### Sequential — resolved by structure since 2026-08-24
 
-**After a losing trade, trade 2 may not be the same direction on any instrument in the index group.**
+With one trade per day (§5), there is no second trade to police. A losing long on NQ cannot be
+re-entered as a long on US100 or ES, because the day is over the moment the NQ trade closes.
 
-That is a re-entry into a trade that already failed, wearing a different ticker. If the only setup
-available is a same-direction index trade, **the day is done.**
+<!-- The rule this replaced: "after a losing trade, trade 2 may not be the same direction on any -->
+<!-- index-group instrument." Correct, and now unreachable. Kept in git history. -->
+<!-- IT COMES BACK THE MOMENT THE CAP GOES ABOVE 1, so if §5 ever changes, restore it. -->
 
-| Trade 1 | Trade 2 proposed | Permitted? |
-|---|---|---|
-| Long NQ — lost | Long US100 | **No.** Same trade re-entered. |
-| Long NQ — lost | Long ES | **No.** Same trade re-entered. |
-| Long NQ — lost | Long NQ | **No.** Plainly the same trade. |
-| Long NQ — lost | Short NQ / ES / US100 | Different trade. Permitted. |
-| Long NQ — lost | XAU/USD | Different instrument. Permitted. |
-| Long NQ — **won** | Long US100 | <!-- TODO: ask me — does this rule apply after a WIN too? --> |
+**The group is still defined, and still matters** — for the weekly picture, for `/review`, and for
+`scripts/stats.py` breakdowns by instrument. Three losing days in a row all long the index group is
+one idea failing three times, not three independent losses.
 
-`/checktrade` blocks the barred rows and quotes this table.
+| Instrument | Group |
+|---|---|
+| NQ | Index |
+| ES | Index |
+| US100 | Index |
+| XAU/USD | <!-- TODO: ask me — separate bucket, or correlated in my experience? --> |
 
-**XAU/USD vs the index group:** <!-- TODO: ask me — separate bucket, or correlated in my experience? -->
 
 ## 8. Moving stops
 
@@ -322,7 +301,7 @@ with five times the size.
 <!-- this rule is losing money and goes back to 1:2. That check happens in review, never mid-session. -->
 
 <!-- WHAT THIS MEANS FOR THE CHALLENGE MATH: -->
-<!--   Best possible day  = 2 winners = +3.0R = +$1,500 -->
+<!--   Best possible day  = 1 winner  = +1.5R = +$750 (§5 caps the day at one trade) -->
 <!--   Worst possible day = -1.0R = -$500 (§2) -->
 <!--   Worst possible week = -3.0R = -$1,500 (§3) -->
 <!-- TODO: verify the profit target on FundedNext, then divide by 1.5R to get the minimum -->

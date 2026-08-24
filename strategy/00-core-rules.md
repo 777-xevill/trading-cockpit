@@ -40,9 +40,10 @@
 <!-- TODO: ask me -->
 <!-- One number. Not "2 or 3". -->
 
-**Hard cap:** **2** trades per day, win or lose. See `risk/risk-rules.md` §5 — that file is authoritative.
+**Hard cap:** **1** trade per day, win or lose. See `risk/risk-rules.md` §5 — that file is authoritative.
 
-**Does a scratch/breakeven trade count against the cap?** <!-- TODO: ask me -->
+**Does a scratch/breakeven trade count against the cap?** No — scratches are free.
+The threshold for what counts as a scratch is still undefined. See `risk/risk-rules.md` §5.
 
 ---
 
