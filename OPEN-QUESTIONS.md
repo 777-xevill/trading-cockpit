@@ -35,19 +35,19 @@ Rules for working through this file:
 - [x] Consecutive losses — **no separate streak rule**, §3 weekly limit covers it → §4
 - [x] Recovery sizing — **risk never changes**, $500 always; never size up to recover → §11
 - [x] Breakeven stop — **at +1.5R only**, never earlier → §8
-- [x] Partial exits — **half off at target, half runs**; r_actual = weighted average → §9
+- [x] Partial exits — **none. All out at stop or target** (reversed same session) → §9
 
 ---
 
 ## NEXT UP — RISK (finish this section first)
+
+- [ ] **UNRESOLVED CONTRADICTION:** exit at +1.5R vs. §10 minimum 1:2 and §8 breakeven trigger at +1.5R. Cannot write either until I say which one moves. → §8, §10
 
 - [ ] **What exactly counts as a scratch?** *(skipped 2026-08-24, ask me again)* — blocks reliable trade counting → §5
 - [ ] Does a losing day of less than 1R count toward the 3-day weekly limit? → §3
 - [ ] Does the correlation re-entry bar apply after a WIN as well as a loss? → §7
 - [ ] Is XAU/USD a separate bucket from the index group, in my experience? → §7
 - [ ] Trailing stop rule, if any → §8
-- [ ] Where does the runner's stop go once half is off? → §9
-- [ ] Where does the runner exit? → setup files, target logic
 - [ ] Is 2.0R the minimum for both a-plus and b-grade, or is a-plus higher? → §10
 
 ## THEN — PROP FIRM (30 unverified values)

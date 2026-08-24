@@ -297,27 +297,16 @@ This rule also keeps `risk/sizing.md` honest: 1R is $500 from the moment the pos
 moment it closes, so `r_actual` in `data/trades.csv` means the same thing on every row. Scaling in
 would make every statistic in `scripts/stats.py` incomparable.
 
-### Scaling OUT is permitted — half at target, half runs
+### Scaling out — NOT USED. All out at one exit.
 
-Scaling out is a different action from adding and is allowed.
+**One entry, one exit. The trade closes at the stop or at the target, in full.**
 
-**The rule:** at the first target (+2.0R minimum, §10), **close half the position.** The remaining
-half runs on.
+`r_actual` is therefore always a single clean number, which keeps every row in `data/trades.csv`
+comparable and `scripts/stats.py` expectancy honest.
 
-**How `r_actual` is recorded for a split exit:** the **weighted average R of the whole position.**
-
-> Half out at +2.0R, half out at +3.0R  →  `r_actual` = (0.5 x 2.0) + (0.5 x 3.0) = **+2.5R**
-> Half out at +2.0R, half stopped at breakeven  →  (0.5 x 2.0) + (0.5 x 0) = **+1.0R**
-
-This keeps every row in `data/trades.csv` comparable, so `scripts/stats.py` expectancy stays honest.
-`size` in the CSV is the **full** original position, not the half.
-
-<!-- NOTE THE COST, so /review can check it: half out at +2R means a trade that runs to +4R pays -->
-<!-- +3R, not +4R. Scaling out lowers the ceiling in exchange for a higher floor. Whether that is -->
-<!-- worth it is an empirical question stats.py can answer once there are enough rows. -->
-
-**Where does the runner's stop go once half is off?** <!-- TODO: ask me -->
-**Where does the runner exit?** <!-- TODO: ask me — belongs in the setup file's target logic -->
+<!-- Reversed on 2026-08-24, same session it was written. Briefly recorded as "half at target, -->
+<!-- half runs", then withdrawn in favour of a single exit. Kept in the git history deliberately: -->
+<!-- if I propose scaling out again, this is the second time, and /review should ask why. -->
 
 ## 10. Minimum R:R
 
