@@ -22,12 +22,12 @@ Rules for working through this file:
 - [x] Minimum R:R — **1:2** → §10
 - [x] Max concurrent positions — **1** → §6
 - [x] Max total open risk — **1.0 R** (follows from one position at 1R) → §6
+- [x] B-grade risk — **same as A+**, no reduction → §1
 
 ---
 
 ## NEXT UP — RISK (finish this section first)
 
-- [ ] B-grade risk — what fraction of the A+ 1%? → §1
 - [ ] Which balance do I calculate % from — starting, current, or high-water mark? → §1
 - [ ] Does an open winning position count toward the daily loss at unrealised value? → §2
 - [ ] Does a breakeven scratch or a sub-1R early exit end the day? → §2, §5

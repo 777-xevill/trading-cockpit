@@ -17,7 +17,14 @@
 | Evaluation / challenge | **1.0 %** | **$500** |
 | Funded | **0.5 %** | **$250** |
 
-**B-grade setup:** ____ % <!-- TODO: ask me — a multiple of the A+ number for the current phase, e.g. 0.5x -->
+**B-grade setup:** **same as A+** — 1.0 % evaluation, 0.5 % funded. No size reduction.
+
+<!-- CONSEQUENCE, decided 2026-08-24: with identical risk, the A+/B-grade split does NO RISK WORK. -->
+<!-- Its only remaining function is statistical: scripts/stats.py breaks expectancy down by setup_tag, -->
+<!-- so the grade is how I find out whether B-grade setups actually make money. -->
+<!-- That only works if I tag honestly AFTER the fact. Relabelling a B-grade as A+ because it won -->
+<!-- destroys the only reason the two categories still exist. -->
+<!-- Note also: under §2 a B-grade loss ends the trading day exactly as an A+ loss does. -->
 
 Which account balance do I calculate % from — starting balance, current balance, or high-water mark? <!-- TODO: ask me -->
 
