@@ -51,32 +51,47 @@ arithmetic error at 22:00.
 
 ## 2. Max daily loss
 
-**ONE FULL STOP-OUT. That is the whole rule.**
+**$500 OF LOSSES IN A DAY. The limit is dollars, not trades.**
 
-| Phase | Max daily loss | In R | In $ |
-|---|---|---|---|
-| Evaluation | 1 losing trade | **1.0 R** | **$500** |
-| Funded | 1 losing trade | **1.0 R** | **$250** |
+| Phase | Max daily loss | In R |
+|---|---|---|
+| Evaluation | **$500** | 1.0 R |
+| Funded | **$250** | 1.0 R |
 
-When the first stop is hit, the trading day is over. Not a smaller size. Not a scalp to get back to flat.
-Not "the setup after this one is the real one." The platform gets closed.
+The day ends the moment losses reach that figure — whether that is one full stop-out, or two partial
+exits that add up to it. It also ends when the 2-trade cap in §5 is used, whichever comes first.
 
-The assistant stops all trade analysis for the rest of that day — see Prime Directive rule 6 in `CLAUDE.md`.
-It will not negotiate, and arguing with it is itself the signal that the rule is working.
+**Worked examples (evaluation, 1R = $500):**
 
-<!-- WHAT THIS RULE IMPLIES — read it so I am not surprised at 22:00: -->
-<!--  * Two losses in one day is IMPOSSIBLE under this rule. The consecutive-loss rule in §4 -->
-<!--    is therefore a MULTI-DAY rule: losses on consecutive days, not consecutive trades. -->
-<!--  * Most losing days end after a single trade. That is the design, not a malfunction. -->
-<!--  * A day can still contain several trades if none of them lose. §5 caps that. -->
+| Trade 1 | Remaining budget | Trade 2 allowed? |
+|---|---|---|
+| Full stop, −$500 | $0 | **No. Day over.** |
+| Early exit, −$180 | $320 | Yes, but stop must risk ≤ $320 |
+| Breakeven, $0 | $500 | Yes, full size |
+| Winner, +$1,000 | see note below | Yes |
+
+**If trade 2 is taken with a reduced budget, the position is sized to that reduced number** — see
+`risk/sizing.md`. A $320 budget does not permit a $500 stop at full size. That is the whole point.
+
+When the limit is hit: the platform gets closed. Not a smaller size. Not a scalp to get back to flat.
+The assistant stops all trade analysis for the rest of that day — Prime Directive rule 6 in `CLAUDE.md`.
+Arguing with it is itself the signal that the rule is working.
+
+**Does a winning trade increase the day's remaining loss budget?** <!-- TODO: ask me -->
+<!-- Two readings of "$500 of losses total", and they behave very differently: -->
+<!--   (a) LOSSES DO NOT OFFSET. Trade 1 wins +$1,000, trade 2 loses −$500 -> limit hit, day over -->
+<!--       at +$500 net. Protects profit. -->
+<!--   (b) NET P&L. Trade 1 wins +$1,000, so the day can fall to −$500 net, meaning trade 2 could -->
+<!--       lose $1,500 before the limit triggers. This is the "playing with house money" version -->
+<!--       and it is how good days become bad days. -->
+<!-- Not writing either one until I say which. Until then /checktrade uses (a), the conservative -->
+<!-- reading, and says so in its output. -->
 
 **Does an open position count toward this at unrealised value?**
-Resolved by structure, not by preference: §6 allows one position at a time and the stop sits at 1R,
-so unrealised loss cannot exceed 1R. My own daily limit cannot be breached by an open trade.
+Resolved by structure, not by preference: §6 allows one position at a time and the stop sits inside
+the remaining budget, so unrealised loss cannot exceed it.
 <!-- This still matters for the FIRM's limit if FundedNext measures daily drawdown on EQUITY -->
 <!-- rather than closing balance. That is a TODO in risk/prop-firm-rules.md, not a decision for me. -->
-
-Does a breakeven scratch or a partial loss (exited early, less than 1R) end the day? <!-- TODO: ask me -->
 
 ## 3. Max weekly loss
 
@@ -112,15 +127,16 @@ Before returning on Monday I must run `/review` and write down what the three lo
 | Evaluation | **2** |
 | Funded | **2** <!-- TODO: ask me — confirm this stays 2 once funded --> |
 
-Combined with §2 (one loss ends the day), the day resolves like this:
+The day ends at **two trades or $500 of losses, whichever comes first** (§2).
 
-| | Result | Outcome |
-|---|---|---|
-| Trade 1 | **Loses** | Day over. One trade taken. |
-| Trade 1 | Wins or scratches | Trade 2 is permitted. |
-| Trade 2 | Anything | Day over regardless. |
+| Trade 1 result | Day continues? |
+|---|---|
+| Full stop, −$500 | **No.** Loss budget exhausted. |
+| Partial loss, −$180 | Yes — trade 2 permitted, sized to the remaining $320 |
+| Breakeven | Yes — trade 2 permitted at full size |
+| Winner | Yes — trade 2 permitted |
 
-**A losing day is always a one-trade day.** There is no path to two losses in a day.
+After trade 2 closes, the day is over regardless of outcome.
 
 Must match `strategy/00-core-rules.md` §3. If the two ever disagree, this file wins and the other gets fixed.
 
@@ -139,9 +155,11 @@ Must match `strategy/00-core-rules.md` §3. If the two ever disagree, this file 
 Trade 2 may only be opened after trade 1 is **closed**. Not "nearly closed", not "at breakeven with
 a runner on". Closed. Flat. Then, and only then, does a second trade exist as a possibility.
 
-This is what makes §2 structurally safe rather than merely intended: with one position at a time,
-**it is arithmetically impossible to lose more than 1R in a day by accident.** The only way to breach
-the daily limit is to deliberately re-enter after a loss, which is a separate and more obvious violation.
+This is what makes §2 enforceable rather than merely intended: with one position at a time, the
+day's loss is the sum of at most two closed trades, and trade 2 is sized to whatever budget trade 1
+left behind. **Size trade 2 to the remaining budget and the $500 ceiling cannot be breached.**
+The two ways to breach it are both deliberate: sizing trade 2 at full risk when the budget is
+already partly spent, or re-entering after the budget is gone.
 
 <!-- The alternative I rejected on 2026-08-24: two positions at 0.5R each. -->
 <!-- Rejected because half-size sizing under pressure at 22:00 is where arithmetic errors live, -->

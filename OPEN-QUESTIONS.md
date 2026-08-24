@@ -25,12 +25,14 @@ Rules for working through this file:
 - [x] B-grade risk — **same as A+**, no reduction → §1
 - [x] Risk basis — **starting balance, $50,000, fixed** → §1
 - [x] Unrealised P&L vs daily limit — moot under one-position rule; firm's equity measure is a prop-firm TODO → §2
+- [x] Partial/early exits — **day ends at $500 of losses cumulative**, not at one trade → §2, §5
 
 ---
 
 ## NEXT UP — RISK (finish this section first)
 
-- [ ] Does a breakeven scratch or a sub-1R early exit end the day? → §2, §5
+- [ ] **Does a winning trade increase the day's remaining loss budget?** (offset vs. net) → §2
+- [ ] Does a breakeven scratch count against the 2-trade cap? → §5
 - [ ] Does a losing day of less than 1R count toward the 3-day weekly limit? → §3
 - [ ] Max consecutive losses before a longer shutdown (multi-day, since §2 caps intraday at 1) → §4
 - [ ] Correlation: NQ + US100 opposite directions — allowed? ES + NQ together? XAU vs indices? → §7
