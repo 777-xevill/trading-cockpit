@@ -31,6 +31,7 @@ Rules for working through this file:
 - [x] 2 trades is a **cap, not a quota** — stopping after one winner is always allowed → §5
 - [x] Moving stops — **never widen, ever; stop is a live broker order** → §8
 - [x] Adding to positions — **never, winners or losers** → §9
+- [x] Correlation — **NQ/ES/US100 are one instrument**; no same-direction re-entry after a loss → §7
 
 ---
 
@@ -39,7 +40,8 @@ Rules for working through this file:
 - [ ] **What exactly counts as a scratch?** *(skipped 2026-08-24, ask me again)* — blocks reliable trade counting → §5
 - [ ] Does a losing day of less than 1R count toward the 3-day weekly limit? → §3
 - [ ] Max consecutive losses before a longer shutdown (multi-day, since §2 caps intraday at 1) → §4
-- [ ] Correlation: NQ + US100 opposite directions — allowed? ES + NQ together? XAU vs indices? → §7
+- [ ] Does the correlation re-entry bar apply after a WIN as well as a loss? → §7
+- [ ] Is XAU/USD a separate bucket from the index group, in my experience? → §7
 - [ ] When exactly may a stop move to breakeven? A single objective trigger → §8
 - [ ] Trailing stop rule, if any → §8
 - [ ] Do I take partial exits (scale out), or all-out at one target? → §9 / setup files

@@ -36,4 +36,5 @@
 - Sessions permitted: <!-- TODO: ask me -->
 
 ## Correlation
-NQ and US100 are **the same trade**. See `risk/risk-rules.md` — never hold both.
+NQ, ES and US100 are **one instrument** under `risk/risk-rules.md` §7.
+One position at a time (§6), and after a loss no same-direction re-entry on any of the three.

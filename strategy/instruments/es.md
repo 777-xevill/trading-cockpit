@@ -35,4 +35,5 @@
 - Sessions permitted: <!-- TODO: ask me -->
 
 ## Correlation
-ES and NQ are highly correlated but not identical. <!-- TODO: ask me — am I allowed to hold both at once, and at what combined risk? -->
+ES, NQ and US100 are **one instrument** under `risk/risk-rules.md` §7.
+Holding two at once is impossible under §6. After a loss, no same-direction re-entry on any of the three.

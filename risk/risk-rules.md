@@ -197,14 +197,35 @@ already partly spent, or re-entering after the budget is gone.
 
 ## 7. Correlation rule
 
-**NQ and US100 are effectively the same instrument.** A long NQ plus a long US100 is one trade at double size, dressed up as two ideas. It is the single fastest way to breach a daily drawdown while believing I am diversified.
+**NQ, ES and US100 are ONE INSTRUMENT for the purposes of these rules.**
 
-- Never hold NQ and US100 at the same time in the same direction. <!-- TODO: ask me — confirm, and decide the opposite-direction case -->
-- ES and NQ: <!-- TODO: ask me — allowed together? at what combined risk? -->
-- XAU/USD vs indices: <!-- TODO: ask me -->
-- If two correlated positions are open, total risk counts as: <!-- TODO: ask me — sum, or worst case? -->
+They are three tickers on the same underlying risk: US equity indices. Treating them as separate
+ideas is the fastest way to take the same trade twice while believing I diversified.
 
-`/checktrade` blocks a correlated second entry.
+### Simultaneous — resolved by structure
+
+§6 permits one open position at a time, so holding two correlated positions is impossible.
+Nothing further to decide here.
+
+### Sequential — this is the live rule
+
+**After a losing trade, trade 2 may not be the same direction on any instrument in the index group.**
+
+That is a re-entry into a trade that already failed, wearing a different ticker. If the only setup
+available is a same-direction index trade, **the day is done.**
+
+| Trade 1 | Trade 2 proposed | Permitted? |
+|---|---|---|
+| Long NQ — lost | Long US100 | **No.** Same trade re-entered. |
+| Long NQ — lost | Long ES | **No.** Same trade re-entered. |
+| Long NQ — lost | Long NQ | **No.** Plainly the same trade. |
+| Long NQ — lost | Short NQ / ES / US100 | Different trade. Permitted. |
+| Long NQ — lost | XAU/USD | Different instrument. Permitted. |
+| Long NQ — **won** | Long US100 | <!-- TODO: ask me — does this rule apply after a WIN too? --> |
+
+`/checktrade` blocks the barred rows and quotes this table.
+
+**XAU/USD vs the index group:** <!-- TODO: ask me — separate bucket, or correlated in my experience? -->
 
 ## 8. Moving stops
 
