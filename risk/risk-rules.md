@@ -308,9 +308,19 @@ Never shrink a stop to manufacture a 2R target. That is how a 2R trade becomes a
 
 ## 11. Recovery / size-up rules
 
-**After a losing day, next day's risk per trade is:** <!-- TODO: ask me -->
-**After hitting a milestone, am I allowed to increase size?** <!-- TODO: ask me -->
-**Revenge-size rule:** never increase size to make back a loss. <!-- TODO: ask me — confirm as an absolute -->
+**Risk never changes. $500 per trade in evaluation, $250 funded. Every day, every trade.**
+
+- After a losing day: **still $500.** Yesterday is not an input to today's sizing.
+- After a winning day: **still $500.** A good run is not permission to size up.
+- After a losing week: **still $500** on return. `/review` may change the strategy; it does not change the number.
+- To make back a loss: **never.** Size is not a recovery tool. Increasing risk after a loss is the
+  single behaviour that turns a bad week into a failed account, and it always feels justified at the time.
+
+The only thing that changes the risk number is the phase of the account (§1), and that change goes
+one way: **down**, from 1% in evaluation to 0.5% funded.
+
+<!-- One number, forever, is the entire point. A risk size that moves is a risk size I will argue -->
+<!-- with, and I will win that argument at 01:00 on a losing night. -->
 
 ---
 

@@ -33,6 +33,7 @@ Rules for working through this file:
 - [x] Adding to positions — **never, winners or losers** → §9
 - [x] Correlation — **NQ/ES/US100 are one instrument**; no same-direction re-entry after a loss → §7
 - [x] Consecutive losses — **no separate streak rule**, §3 weekly limit covers it → §4
+- [x] Recovery sizing — **risk never changes**, $500 always; never size up to recover → §11
 
 ---
 
@@ -45,7 +46,6 @@ Rules for working through this file:
 - [ ] When exactly may a stop move to breakeven? A single objective trigger → §8
 - [ ] Trailing stop rule, if any → §8
 - [ ] Do I take partial exits (scale out), or all-out at one target? → §9 / setup files
-- [ ] After a losing day, does the next day's risk change? → §11
 - [ ] Is 2.0R the minimum for both a-plus and b-grade, or is a-plus higher? → §10
 
 ## THEN — PROP FIRM (30 unverified values)
