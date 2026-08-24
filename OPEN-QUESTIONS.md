@@ -23,13 +23,13 @@ Rules for working through this file:
 - [x] Max concurrent positions — **1** → §6
 - [x] Max total open risk — **1.0 R** (follows from one position at 1R) → §6
 - [x] B-grade risk — **same as A+**, no reduction → §1
+- [x] Risk basis — **starting balance, $50,000, fixed** → §1
+- [x] Unrealised P&L vs daily limit — moot under one-position rule; firm's equity measure is a prop-firm TODO → §2
 
 ---
 
 ## NEXT UP — RISK (finish this section first)
 
-- [ ] Which balance do I calculate % from — starting, current, or high-water mark? → §1
-- [ ] Does an open winning position count toward the daily loss at unrealised value? → §2
 - [ ] Does a breakeven scratch or a sub-1R early exit end the day? → §2, §5
 - [ ] Does a losing day of less than 1R count toward the 3-day weekly limit? → §3
 - [ ] Max consecutive losses before a longer shutdown (multi-day, since §2 caps intraday at 1) → §4

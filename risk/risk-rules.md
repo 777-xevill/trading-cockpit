@@ -26,7 +26,22 @@
 <!-- destroys the only reason the two categories still exist. -->
 <!-- Note also: under §2 a B-grade loss ends the trading day exactly as an A+ loss does. -->
 
-Which account balance do I calculate % from — starting balance, current balance, or high-water mark? <!-- TODO: ask me -->
+**Percentages are calculated from the STARTING balance — $50,000 — always.**
+
+1R is a fixed dollar amount for the entire challenge. It does not move with the account.
+
+| Phase | Basis | 1R |
+|---|---|---|
+| Evaluation | $50,000 starting balance | **$500, fixed** |
+| Funded | $50,000 starting balance | **$250, fixed** |
+
+No recalculation before a session. No compounding. If the balance is $46,800 on a Thursday, 1R is
+still $500. The number on the sizing calculation never changes, which removes one whole category of
+arithmetic error at 22:00.
+
+<!-- ACCEPTED TRADE-OFF: in a drawdown, a fixed $500 is a larger share of what is left. -->
+<!-- Bounded by §3: the worst week is -3R = -$1,500, so the account cannot drift far enough -->
+<!-- for the fixed number to become dangerous before the weekly rule stops me. -->
 
 <!-- ARITHMETIC, for my eyes at 22:00: -->
 <!-- Evaluation, 1% = $500/trade. 6 consecutive losses = $3,000 = 6% of the account. -->
@@ -55,7 +70,12 @@ It will not negotiate, and arguing with it is itself the signal that the rule is
 <!--  * Most losing days end after a single trade. That is the design, not a malfunction. -->
 <!--  * A day can still contain several trades if none of them lose. §5 caps that. -->
 
-Does an open winning position count toward this at unrealised value? <!-- TODO: ask me -->
+**Does an open position count toward this at unrealised value?**
+Resolved by structure, not by preference: §6 allows one position at a time and the stop sits at 1R,
+so unrealised loss cannot exceed 1R. My own daily limit cannot be breached by an open trade.
+<!-- This still matters for the FIRM's limit if FundedNext measures daily drawdown on EQUITY -->
+<!-- rather than closing balance. That is a TODO in risk/prop-firm-rules.md, not a decision for me. -->
+
 Does a breakeven scratch or a partial loss (exited early, less than 1R) end the day? <!-- TODO: ask me -->
 
 ## 3. Max weekly loss
