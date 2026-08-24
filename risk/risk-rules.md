@@ -158,14 +158,20 @@ The $500 loss budget in §2 is untouched by a scratch, because a scratch costs n
 <!-- −$40 gets called a scratch to buy a third entry, then −$90, and the 2-trade cap stops existing. -->
 <!-- If /review ever shows days with more than 2 entries, this rule is the reason and it gets cut. -->
 
-**What exactly counts as a scratch?** <!-- TODO: ask me -->
+**What exactly counts as a scratch? UNDEFINED — skipped on 2026-08-24. Ask me again.**
+
+Until it is defined, `/checktrade` cannot count trades reliably: it does not know whether the
+previous trade used a slot. It reports `INCOMPLETE: scratch threshold undefined` when the day's
+first trade closed at a small loss and a second is proposed. It does not pick a number for me.
 <!-- Commission and spread mean a trade exited at the entry price is never exactly $0.00. -->
 <!-- On NQ a round turn is a few dollars, so "flat" is realistically a small negative. -->
 <!-- Without a boundary this rule either never triggers, or triggers whenever I want it to. -->
 <!-- Not inventing the number. Options I have to choose between: exact $0.00 only; -->
 <!-- costs-only (fees and spread, no adverse move); or a fixed dollar band I name. -->
 
-<!-- TODO: ask me — if trade 1 wins, am I allowed to stop for the day instead of taking trade 2? -->
+**Two is a CAP, not a quota.** Nothing obliges me to take a second trade. Stopping after one
+winner is always permitted and never needs a reason. The rule sets a ceiling on activity, not a floor.
+
 
 ## 6. Max concurrent positions
 
