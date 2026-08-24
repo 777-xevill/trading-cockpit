@@ -29,6 +29,7 @@ Rules for working through this file:
 - [x] Wins do **not** extend the loss budget — worst day −$500, best day +$2,000 → §2
 - [x] Breakeven scratches — **free, do not use a trade slot** (loophole flagged in file) → §5
 - [x] 2 trades is a **cap, not a quota** — stopping after one winner is always allowed → §5
+- [x] Moving stops — **never widen, ever; stop is a live broker order** → §8
 
 ---
 
@@ -38,7 +39,8 @@ Rules for working through this file:
 - [ ] Does a losing day of less than 1R count toward the 3-day weekly limit? → §3
 - [ ] Max consecutive losses before a longer shutdown (multi-day, since §2 caps intraday at 1) → §4
 - [ ] Correlation: NQ + US100 opposite directions — allowed? ES + NQ together? XAU vs indices? → §7
-- [ ] Moving stops — never widen? When exactly may a stop go to breakeven? → §8
+- [ ] When exactly may a stop move to breakeven? A single objective trigger → §8
+- [ ] Trailing stop rule, if any → §8
 - [ ] Adding to positions — to winners? to losers? at all? → §9
 - [ ] After a losing day, does the next day's risk change? → §11
 - [ ] Is 2.0R the minimum for both a-plus and b-grade, or is a-plus higher? → §10

@@ -208,10 +208,26 @@ already partly spent, or re-entering after the budget is gone.
 
 ## 8. Moving stops
 
-**Am I allowed to move a stop further away from entry?** <!-- TODO: ask me -->
-<!-- The correct answer is almost always "never". Say it explicitly so I cannot pretend it was ambiguous at 22:40. -->
+**A stop NEVER moves away from entry. Not once, not for any reason, not on any instrument.**
 
-**When may I move a stop to breakeven?** <!-- TODO: ask me — a specific trigger, e.g. "at +1R", not "when it looks safe". -->
+**The stop is a live order with the broker, placed the moment the position is opened.**
+Not a mental stop. Not an alert. Not "I'll watch it." A working order sitting in the book.
+
+I cannot widen what I do not have to look at. A mental stop is not a stop — it is an intention,
+and intentions do not survive contact with a position that is losing.
+
+<!-- WHY THIS RULE OUTRANKS ALMOST EVERYTHING ELSE HERE: -->
+<!-- Widening a stop turns $500 of risk into $700, then $900. The moment that happens, every -->
+<!-- number in this file is fiction: the daily limit, the weekly limit, the position sizing, -->
+<!-- the expectancy in scripts/stats.py. All of it assumes 1R means what it says. -->
+<!-- There are NO exceptions written here, deliberately, so that none can be argued for at 01:00. -->
+
+Moving the stop **toward** profit is a different action and is governed below.
+
+**When may a stop move to breakeven?** <!-- TODO: ask me -->
+<!-- Needs a single objective trigger, e.g. "at +1R". Not "when it looks safe". -->
+<!-- Note the cost: a breakeven stop converts losers into scratches AND winners into scratches. -->
+<!-- It is not free, and at a 1:2 minimum R:R it can quietly destroy the edge. -->
 
 **Trailing rule, if any:** <!-- TODO: ask me -->
 
