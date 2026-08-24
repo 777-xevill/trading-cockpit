@@ -122,9 +122,19 @@ Before returning on Monday I must run `/review` and write down what the three lo
 
 ## 4. Max consecutive losses before shutdown
 
-**Number:** ____ <!-- TODO: ask me -->
-**Shutdown means:** <!-- TODO: ask me — rest of day, or rest of week? -->
-**Does a breakeven scratch reset the streak?** <!-- TODO: ask me -->
+**No separate streak rule. §3 covers it.**
+
+Three losing days ends the week regardless of whether they were consecutive. A streak of three in a
+row and three scattered across a week produce the same outcome: stop, run `/review`, return Monday.
+
+<!-- Considered and rejected on 2026-08-24: a harsher streak trigger (demo, or half size until a -->
+<!-- winning week). Rejected because §3 already caps the damage at -$1,500 and a second overlapping -->
+<!-- shutdown rule is one more thing to track at 01:00. One rule that fires is better than two that -->
+<!-- get argued about. -->
+
+**If `/review` ever shows the three losses had a common cause** — same setup, same hour, same
+instrument, same state of mind — that is a strategy problem, not a streak problem, and it gets fixed
+in the setup file, not with a bigger shutdown.
 
 ## 5. Max trades per day
 

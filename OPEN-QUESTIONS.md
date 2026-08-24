@@ -32,6 +32,7 @@ Rules for working through this file:
 - [x] Moving stops — **never widen, ever; stop is a live broker order** → §8
 - [x] Adding to positions — **never, winners or losers** → §9
 - [x] Correlation — **NQ/ES/US100 are one instrument**; no same-direction re-entry after a loss → §7
+- [x] Consecutive losses — **no separate streak rule**, §3 weekly limit covers it → §4
 
 ---
 
@@ -39,7 +40,6 @@ Rules for working through this file:
 
 - [ ] **What exactly counts as a scratch?** *(skipped 2026-08-24, ask me again)* — blocks reliable trade counting → §5
 - [ ] Does a losing day of less than 1R count toward the 3-day weekly limit? → §3
-- [ ] Max consecutive losses before a longer shutdown (multi-day, since §2 caps intraday at 1) → §4
 - [ ] Does the correlation re-entry bar apply after a WIN as well as a loss? → §7
 - [ ] Is XAU/USD a separate bucket from the index group, in my experience? → §7
 - [ ] When exactly may a stop move to breakeven? A single objective trigger → §8
