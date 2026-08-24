@@ -21,6 +21,7 @@ Rules for working through this file:
 - [x] Max trades per day — **1** (changed from 2 on 2026-08-24) → §5
 - [x] Minimum R:R — **1:2** → §10
 - [x] Max concurrent positions — **1** → §6
+- [x] Strategy document received 2026-08-24 — filed into `strategy/` (see git log)
 - [x] Max total open risk — **1.0 R** (follows from one position at 1R) → §6
 - [x] B-grade risk — **same as A+**, no reduction → §1
 - [x] Risk basis — **starting balance, $50,000, fixed** → §1
@@ -77,35 +78,44 @@ fast pass is even legal. → `risk/prop-firm-rules.md`
 - [ ] Do I subtract costs before calculating R?
 - [ ] Hard cap on contracts/lots per instrument
 
-## THEN — CORE RULES
+## BLOCKING — THE STRATEGY DOCUMENT DID NOT INCLUDE THESE
 
-- [ ] What must be true before I am allowed to look for entries → `strategy/00-core-rules.md` §1
-- [ ] Which sessions I trade and never trade, in Dhaka time → §2, `strategy/02-session-plan.md`
-- [ ] Earliest entry / last entry / hard flat time, Dhaka time → session plan
-- [ ] Fatigue rule — minimum sleep, latest hour I may open a position → session plan
-- [ ] News blackout window in minutes, before and after → session plan
-- [ ] What "A+" means, in one sentence → §4
-- [ ] What automatically disqualifies a trade → §5
+**These make the difference between a described model and a tradeable one.**
+`/checktrade` cannot produce a verdict without them: it cannot size a position or calculate R:R.
+Answer these before anything else in this file.
 
-## THEN — MARKET STRUCTURE (my definitions, not textbook ICT)
+- [ ] **Stop placement rule** — must produce a single price → `strategy/setups/a-plus.md`
+      *Beyond the swept wick? Beyond the swing the BOS broke? Beyond the IFVG? Name one.*
+- [ ] **Entry mechanic** — one method, not three → `a-plus.md`
+      *Market on the BOS close? Limit at the IFVG? Wait for a retrace to the BOS level?*
+- [ ] **Target logic** — which liquidity, specifically → `a-plus.md`
+      *"Opposite-side liquidity" is stated; which level in the hierarchy is not.*
+- [ ] **BOS beyond WHICH level?** — the load-bearing trigger, currently untestable → `01-market-structure.md`
+- [ ] **Last permitted entry time** — is the window 09:40–09:45, or does 09:40 only start it? → `02-session-plan.md`
 
-- [ ] Timeframes: HTF bias / intermediate / entry → `strategy/01-market-structure.md`
-- [ ] Liquidity sweep — my definition, and how I confirm it on a closed candle
-- [ ] MSS — body close or wick? which timeframe?
-- [ ] Order block — my definition, wick or body, when it is dead
-- [ ] FVG — minimum size per instrument, mitigation requirement
-- [ ] Premium/discount — which dealing range, and is a wrong-half entry refused?
-- [ ] The levels I mark every single day
+## THEN — STRATEGY DEFINITIONS
 
-## THEN — SETUPS
-
-- [ ] Name of the A+ setup, and its numbered trigger conditions → `strategy/setups/a-plus.md`
-- [ ] Entry mechanic, stop rule, target logic for A+
-- [ ] Name and triggers for the B-grade setup → `strategy/setups/b-grade.md`
-- [ ] Am I allowed to take B-grade at all after a loss?
-- [ ] **The no-trade conditions list — currently empty** → `strategy/setups/no-trade-conditions.md`
-- [ ] Bias invalidation, setup invalidation, trade invalidation → `strategy/invalidation.md`
-- [ ] Re-entry rules after a stop-out
+- [ ] **IFVG** — never defined anywhere → `01-market-structure.md`
+- [ ] **SMT divergence** — never defined; required or optional? → `01-market-structure.md`
+- [ ] How many of the four confluences must align to take a trade?
+- [ ] "Candle high" in the blue/black rule — wick high or body high? Changes where the line goes
+- [ ] Which candles count as "together" for the blue/black rule — adjacent only, or any pair?
+- [ ] "Recent" 5M high/low — how far back, as a number
+- [ ] "Interacted with" for the forward-candle rule — wick touch or body close through?
+- [ ] Does the liquidity hierarchy rank importance, or just group levels?
+- [ ] Time limit between the sweep and BOS confirmation before the idea is dead
+- [ ] NQ and ES both signal in the same window — which one do I take? (One trade per day, §5)
+- [ ] Futures (NQ/ES) or CFDs?
+- [ ] Is a pre-open HTF bias required, or is the model purely reactive?
+- [ ] Premium/discount — part of my model at all? ("No" is a fine answer)
+- [ ] Is there a B-grade setup at all, or only this one? → `setups/b-grade.md`
+- [ ] What does "A+" mean in one sentence → `00-core-rules.md` §4
+- [ ] Am I permitted to exit early on structure, and on what signal? → `a-plus.md`
+- [ ] Confirm: never execute in London or Asia
+- [ ] Confirm: XAU/USD and US100 are genuinely out of scope
+- [ ] Hard flat time — do I ever hold past the session?
+- [ ] News rules — releases, blackout window, where I check → `02-session-plan.md`
+- [ ] Do I still want a sleep minimum, given the window is 19:40 Dhaka not 01:00?
 
 ## THEN — PSYCHOLOGY
 
