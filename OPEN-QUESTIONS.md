@@ -35,6 +35,7 @@ Rules for working through this file:
 - [x] Consecutive losses — **no separate streak rule**, §3 weekly limit covers it → §4
 - [x] Recovery sizing — **risk never changes**, $500 always; never size up to recover → §11
 - [x] Breakeven stop — **at +1.5R only**, never earlier → §8
+- [x] Partial exits — **half off at target, half runs**; r_actual = weighted average → §9
 
 ---
 
@@ -45,7 +46,8 @@ Rules for working through this file:
 - [ ] Does the correlation re-entry bar apply after a WIN as well as a loss? → §7
 - [ ] Is XAU/USD a separate bucket from the index group, in my experience? → §7
 - [ ] Trailing stop rule, if any → §8
-- [ ] Do I take partial exits (scale out), or all-out at one target? → §9 / setup files
+- [ ] Where does the runner's stop go once half is off? → §9
+- [ ] Where does the runner exit? → setup files, target logic
 - [ ] Is 2.0R the minimum for both a-plus and b-grade, or is a-plus higher? → §10
 
 ## THEN — PROP FIRM (30 unverified values)

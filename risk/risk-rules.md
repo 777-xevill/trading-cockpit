@@ -297,8 +297,27 @@ This rule also keeps `risk/sizing.md` honest: 1R is $500 from the moment the pos
 moment it closes, so `r_actual` in `data/trades.csv` means the same thing on every row. Scaling in
 would make every statistic in `scripts/stats.py` incomparable.
 
-**Partial exits (scaling OUT) are a different action** and are governed by the target logic in the
-setup file, not here. <!-- TODO: ask me — do I take partials at all, or is it all-out at one target? -->
+### Scaling OUT is permitted — half at target, half runs
+
+Scaling out is a different action from adding and is allowed.
+
+**The rule:** at the first target (+2.0R minimum, §10), **close half the position.** The remaining
+half runs on.
+
+**How `r_actual` is recorded for a split exit:** the **weighted average R of the whole position.**
+
+> Half out at +2.0R, half out at +3.0R  →  `r_actual` = (0.5 x 2.0) + (0.5 x 3.0) = **+2.5R**
+> Half out at +2.0R, half stopped at breakeven  →  (0.5 x 2.0) + (0.5 x 0) = **+1.0R**
+
+This keeps every row in `data/trades.csv` comparable, so `scripts/stats.py` expectancy stays honest.
+`size` in the CSV is the **full** original position, not the half.
+
+<!-- NOTE THE COST, so /review can check it: half out at +2R means a trade that runs to +4R pays -->
+<!-- +3R, not +4R. Scaling out lowers the ceiling in exchange for a higher floor. Whether that is -->
+<!-- worth it is an empirical question stats.py can answer once there are enough rows. -->
+
+**Where does the runner's stop go once half is off?** <!-- TODO: ask me -->
+**Where does the runner exit?** <!-- TODO: ask me — belongs in the setup file's target logic -->
 
 ## 10. Minimum R:R
 
