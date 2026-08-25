@@ -25,6 +25,7 @@ Rules for working through this file:
 - [x] 1M entry sequence received 2026-08-26 — stage 2 of `setups/a-plus.md`
 - [x] Entry TRIGGER — **second 1M BOS with the 5M bias + other index confirms** → `a-plus.md`
 - [x] Other-index gate — **mandatory**: no BOS or IFVG on the other index = no trade → `a-plus.md`
+- [x] BOS confirmation — **full body close on EVERY timeframe** (5M and both 1M legs) → `01-market-structure.md`
 - [x] Max total open risk — **1.0 R** (follows from one position at 1R) → §6
 - [x] B-grade risk — **same as A+**, no reduction → §1
 - [x] Risk basis — **starting balance, $50,000, fixed** → §1
@@ -94,7 +95,6 @@ Answer these before anything else in this file.
       *Each gives a different entry price, so a different stop distance, size and R:R.*
 - [ ] **How deep may the 1M retracement go before the idea is dead?** → `a-plus.md`
       *Stage 2 waits for price to move against the 5M bias. Nothing says when it has gone too far.*
-- [ ] **Does the 1M BOS require a BODY close like the 5M one?** → `01-market-structure.md`
 - [ ] **Target logic** — which liquidity, specifically → `a-plus.md`
       *"Opposite-side liquidity" is stated; which level in the hierarchy is not.*
 - [ ] **BOS beyond WHICH level?** — the load-bearing trigger, currently untestable → `01-market-structure.md`

@@ -92,12 +92,13 @@ Written for a **long** (a marked low was swept, 5M BOS was bullish). Reverse eve
 
 6. **A recent LOW forms on the 1M**, identified by the blue/black wick rule, including its relevant wick.
 
-7. **That recent low is broken to the downside by a 1M BOS.**
-   This is the retracement leg — it moves *against* the 5M bias, on purpose.
+7. **That recent low is broken to the downside by a 1M BOS, confirmed by a FULL BODY CLOSE.**
+   Not a wick through the level. This is the retracement leg — it moves *against* the 5M bias, on purpose.
 
 8. **The most recent high/low is identified again** on the 1M, same blue/black wick rules.
 
-9. **A 1M BOS back to the UPSIDE** — back in the direction of the 5M bias.
+9. **A 1M BOS back to the UPSIDE, confirmed by a FULL BODY CLOSE** — back in the direction of
+   the 5M bias. Wick closes do not count here either.
 
 10. **The other index confirms.** I check NASDAQ against S&P 500.
     > "If the other index gives a BOS or IFVG, I take the entry. If there is no BOS or IFVG,
@@ -123,11 +124,11 @@ Written for a **long** (a marked low was swept, 5M BOS was bullish). Reverse eve
            |
    Recent low forms           (blue/black wick rule)
            |
-   1M BOS downside            (the retracement, against the 5M bias)
+   1M BOS downside            (BODY close - the retracement, against the 5M bias)
            |
    Recent high/low again      (blue/black wick rule)
            |
-   1M BOS upside              (back with the 5M bias)
+   1M BOS upside              (BODY close - back with the 5M bias)
            |
    Other index: BOS or IFVG?  --- NO ---> NO TRADE
            |
@@ -155,10 +156,8 @@ the 5M bias, with the other index confirming by BOS or IFVG.
 <!-- These produce different entry prices, therefore different stop distances, therefore -->
 <!-- different position sizes and different R:R on the same trade. One method, not three. -->
 
-<!-- ALSO UNDEFINED: does the 1M BOS require a BODY close like the 5M one does? -->
-<!-- The body-close rule is stated four times in capitals for the 5M and never mentioned for -->
-<!-- the 1M. On a 1M chart the difference between wick and body decides most of these calls. -->
-<!-- TODO: ask me. -->
+**Both 1M BOS legs require a full body close** (confirmed 2026-08-26), same standard as the 5M.
+One confirmation rule across every timeframe — there is nothing to remember per-chart.
 
 ## Stop placement rule
 
@@ -189,7 +188,8 @@ the R:R.
 
 - No marked liquidity has been hit → no trade, keep waiting.
 - Liquidity hit but no opposite-direction 5M BOS with a **body** close → no trade.
-- BOS confirmed by a wick only → **no trade.** Wick closes do not count.
+- **Any BOS confirmed by a wick only → no trade.** Applies to the 5M BOS and to both 1M BOS legs.
+  A wick through a level is not a break of structure on any timeframe in this model.
 - The level was already interacted with by a forward candle → it is not fresh liquidity
   (`strategy/01-market-structure.md`, forward-candle interaction rule).
 - Time is outside the permitted window.

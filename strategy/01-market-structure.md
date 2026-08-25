@@ -212,8 +212,11 @@ Used for short-term liquidity. Marked with the blue/black rule.
 
 ## Break of Structure (BOS)
 
-**BOS must be confirmed by a BODY CANDLE CLOSE, not a wick.** This is stated repeatedly in my
-strategy document and is the one confirmation rule I wrote in capitals.
+**BOS must be confirmed by a FULL BODY CANDLE CLOSE, not a wick — on EVERY timeframe.**
+
+This is the one confirmation rule I wrote in capitals, and as of 2026-08-26 it is universal:
+the 5M BOS and both 1M BOS legs are all body-close only. There is no timeframe in this model
+where a wick through a level counts as a break of structure.
 
 Used on the **5M** as the priority confirmation after a liquidity hit.
 
@@ -227,9 +230,7 @@ Used on the **5M** as the priority confirmation after a liquidity hit.
 The 1M sequence uses BOS twice: once **against** the 5M bias (the retracement), then once **back
 with** it (the entry trigger). Both break a recent high/low identified by the blue/black wick rule.
 
-**Does the 1M BOS also require a BODY close, like the 5M one?** <!-- TODO: ask me -->
-<!-- The body-close rule is stated four times in capitals for the 5M and never once for the 1M. -->
-<!-- On a 1M chart, wick-versus-body decides most of these calls. Not assuming it carries over. -->
+**Both 1M BOS legs require a FULL BODY CLOSE.** Confirmed 2026-08-26. Same standard as the 5M.
 
 **Structure broken relative to WHAT, exactly?** <!-- TODO: ask me -->
 <!-- The document never says which level the body must close beyond. Candidates: the last 5M swing -->
