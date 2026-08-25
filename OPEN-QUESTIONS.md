@@ -22,6 +22,9 @@ Rules for working through this file:
 - [x] Minimum R:R — **1:2** → §10
 - [x] Max concurrent positions — **1** → §6
 - [x] Strategy document received 2026-08-24 — filed into `strategy/` (see git log)
+- [x] 1M entry sequence received 2026-08-26 — stage 2 of `setups/a-plus.md`
+- [x] Entry TRIGGER — **second 1M BOS with the 5M bias + other index confirms** → `a-plus.md`
+- [x] Other-index gate — **mandatory**: no BOS or IFVG on the other index = no trade → `a-plus.md`
 - [x] Max total open risk — **1.0 R** (follows from one position at 1R) → §6
 - [x] B-grade risk — **same as A+**, no reduction → §1
 - [x] Risk basis — **starting balance, $50,000, fixed** → §1
@@ -86,8 +89,12 @@ Answer these before anything else in this file.
 
 - [ ] **Stop placement rule** — must produce a single price → `strategy/setups/a-plus.md`
       *Beyond the swept wick? Beyond the swing the BOS broke? Beyond the IFVG? Name one.*
-- [ ] **Entry mechanic** — one method, not three → `a-plus.md`
-      *Market on the BOS close? Limit at the IFVG? Wait for a retrace to the BOS level?*
+- [ ] **Entry FILL method** — the trigger is now defined, the fill price is not → `a-plus.md`
+      *Market on the close of the 1M BOS candle? Limit at the 1M IFVG? Limit at the retracement low?*
+      *Each gives a different entry price, so a different stop distance, size and R:R.*
+- [ ] **How deep may the 1M retracement go before the idea is dead?** → `a-plus.md`
+      *Stage 2 waits for price to move against the 5M bias. Nothing says when it has gone too far.*
+- [ ] **Does the 1M BOS require a BODY close like the 5M one?** → `01-market-structure.md`
 - [ ] **Target logic** — which liquidity, specifically → `a-plus.md`
       *"Opposite-side liquidity" is stated; which level in the hierarchy is not.*
 - [ ] **BOS beyond WHICH level?** — the load-bearing trigger, currently untestable → `01-market-structure.md`
@@ -96,7 +103,12 @@ Answer these before anything else in this file.
 ## THEN — STRATEGY DEFINITIONS
 
 - [ ] **IFVG** — never defined anywhere → `01-market-structure.md`
-- [ ] **SMT divergence** — never defined; required or optional? → `01-market-structure.md`
+- [ ] **SMT divergence vs the other-index gate — one rule or two?** → `01-market-structure.md`
+      *Confluence 4 is "SMT Divergence" (indices behave differently). Stage 2 condition 10 is a
+      confirmation gate (other index does the same thing). These are opposite conditions.*
+- [ ] Which timeframe must the other index's BOS/IFVG appear on — 1M or 5M?
+- [ ] Must the other index's confirmation be in the same direction as my trade?
+- [ ] Is there a time limit on the four-step 1M sequence?
 - [ ] How many of the four confluences must align to take a trade?
 - [ ] "Candle high" in the blue/black rule — wick high or body high? Changes where the line goes
 - [ ] Which candles count as "together" for the blue/black rule — adjacent only, or any pair?

@@ -33,12 +33,17 @@ My execution is based on four major confluences:
 | Session liquidity | **Asia / London ranges** |
 | Intermediate liquidity | **1H** |
 | Short-term liquidity | **5M** |
-| **Confirmation / execution** | **5M** |
-| Explicitly NOT used to determine a liquidity hit | **1M** |
+| **Stage 1 — qualification** | **5M** |
+| **Stage 2 — retracement and entry** | **1M** |
+
+The two timeframes have strictly separated jobs, and the boundary is a rule:
 
 > "I do not use the 1-minute timeframe simply to determine whether my marked liquidity has been hit."
 
-**Is 1M used for anything at all — entry refinement, stop placement?** <!-- TODO: ask me -->
+> "After the 5M BOS, I shift to the 1M timeframe for the retracement."
+
+**5M decides whether there is a trade. 1M decides when to take it.**
+A liquidity hit is never confirmed on the 1M. An entry is never taken on the 5M.
 
 ---
 
@@ -112,7 +117,7 @@ I also track **4H body opening** and **4H body closing** as higher-timeframe liq
 
 ---
 
-## The blue/black candle rule — 1H and 5M
+## The blue/black candle rule — 1H, 5M and 1M
 
 My TradingView candle colours:
 
@@ -139,7 +144,19 @@ blue + blue, or black + black. It is specifically for **blue + black** or **blac
 | Black candle wick low < Blue candle wick low | **Black candle low** |
 | Blue candle wick low < Black candle wick low | **Blue candle low** |
 
-This rule also applies to the **recent 5M high and low** — same blue/black concept.
+This rule applies on **three timeframes**:
+
+| Timeframe | Used for |
+|---|---|
+| **1H** | Intermediate liquidity marked before the open |
+| **5M** | Recent short-term liquidity |
+| **1M** | Stage 2 — the recent high/low used in the retracement and entry sequence |
+
+> "On 1M, I focus only on the recent high and low, using the same Blue and Black candle wick rules."
+
+> "Always focus on the most recent valid high/low and apply the same Blue/Black wick rules."
+
+**It does NOT apply on the 4H**, which uses actual candle extremes.
 
 ### UNRESOLVED — what "candle high" means here
 
@@ -205,6 +222,15 @@ Used on the **5M** as the priority confirmation after a liquidity hit.
 - Low-side: price takes a marked low, then a **5M bullish BOS with body close** indicates price has
   started breaking structure to the upside.
 
+### 1M BOS — stage 2
+
+The 1M sequence uses BOS twice: once **against** the 5M bias (the retracement), then once **back
+with** it (the entry trigger). Both break a recent high/low identified by the blue/black wick rule.
+
+**Does the 1M BOS also require a BODY close, like the 5M one?** <!-- TODO: ask me -->
+<!-- The body-close rule is stated four times in capitals for the 5M and never once for the 1M. -->
+<!-- On a 1M chart, wick-versus-body decides most of these calls. Not assuming it carries over. -->
+
 **Structure broken relative to WHAT, exactly?** <!-- TODO: ask me -->
 <!-- The document never says which level the body must close beyond. Candidates: the last 5M swing -->
 <!-- low before the sweep, the most recent 5M structural low, an internal low. -->
@@ -240,11 +266,31 @@ NASDAQ and S&P 500 are analysed together, not as independent markets.
 > framework rather than as a standalone entry signal."
 
 **My definition of SMT divergence:** <!-- TODO: ask me -->
+<!-- Still undefined as a concept, separately from the other-index gate described below. -->
 <!-- e.g. "NQ takes the marked high, ES fails to take its corresponding high, on the same 5M candle" -->
 <!-- — but that is my guess at a standard definition, not my rule. Not writing it. -->
 
-**Is SMT required, or optional confluence?** <!-- TODO: ask me -->
-**If SMT is absent but BOS is present, is the trade still valid?** <!-- TODO: ask me -->
+### The other-index gate — stage 2, condition 10
+
+At the entry trigger I check the other index:
+
+> "If the other index gives a BOS or IFVG, I take the entry. If there is no BOS or IFVG,
+> I do not take the trade."
+
+**This is mandatory.** No BOS and no IFVG on the other index means no trade.
+
+<!-- BUT THIS IS NOT DIVERGENCE, AND THE DIFFERENCE MATTERS: -->
+<!-- SMT divergence = the two indices behave DIFFERENTLY at a liquidity event (one takes the -->
+<!--   high, the other fails to). -->
+<!-- The gate above = the other index does the SAME thing (also gives a BOS or IFVG). -->
+<!-- These are opposite conditions. My strategy overview lists "SMT Divergence" as confluence 4, -->
+<!-- and my execution rules describe a confirmation gate. -->
+<!-- TODO: ask me — are these one rule I have described two ways, or two separate requirements? -->
+<!-- If two, SMT divergence needs its own definition and its own place in the trigger list. -->
+
+**On which timeframe must the other index show its BOS or IFVG — 1M or 5M?** <!-- TODO: ask me -->
+**Must it be in the same direction as my trade?** <!-- TODO: ask me -->
+<!-- Presumably yes, but "presumably" is not a rule and this is a hard gate on every entry. -->
 
 ---
 

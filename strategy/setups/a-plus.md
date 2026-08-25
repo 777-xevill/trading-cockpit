@@ -75,29 +75,90 @@ are all **no**.
    Must develop after or around the liquidity interaction and support the move away from it.
    <!-- TODO: ask me — IFVG is undefined. And if BOS and IFVG disagree, which wins? -->
 
-6. **SMT divergence between NASDAQ and S&P 500.**
-   <!-- TODO: ask me — required or optional? Undefined, and undefined as a concept in my files. -->
+**Stage 1 qualifies the idea. It is not an entry.** Once conditions 1–4 are met I move to the 1M.
 
-### The model in sequence
+---
+
+### STAGE 2 — 1M entry sequence
+
+> "After the 5M BOS, I shift to the 1M timeframe for the retracement."
+
+On the 1M I focus **only on the recent high and low**, using the same **blue/black candle wick rules**
+from `strategy/01-market-structure.md`.
+
+> "Always focus on the most recent valid high/low and apply the same Blue/Black wick rules."
+
+Written for a **long** (a marked low was swept, 5M BOS was bullish). Reverse everything for a short.
+
+6. **A recent LOW forms on the 1M**, identified by the blue/black wick rule, including its relevant wick.
+
+7. **That recent low is broken to the downside by a 1M BOS.**
+   This is the retracement leg — it moves *against* the 5M bias, on purpose.
+
+8. **The most recent high/low is identified again** on the 1M, same blue/black wick rules.
+
+9. **A 1M BOS back to the UPSIDE** — back in the direction of the 5M bias.
+
+10. **The other index confirms.** I check NASDAQ against S&P 500.
+    > "If the other index gives a BOS or IFVG, I take the entry. If there is no BOS or IFVG,
+    > I do not take the trade."
+
+    **This is a hard gate.** No confirmation on the other index = no trade, regardless of how clean
+    the first nine conditions were.
+
+### The full model in sequence
 
 ```
-Pre-marked liquidity
-        ↓
-   Liquidity hit          (confirmed on 5M, not 1M)
-        ↓
-Opposite 5M structure     (BOS with BODY close — priority)
-        ↓
-New liquidity identified  (the 5M structure shows the next liquidity area)
-        ↓
-     Execution
+              STAGE 1  —  5M qualification
+   Pre-marked liquidity
+           |
+      Liquidity hit           (confirmed on 5M, never 1M)
+           |
+   Opposite-direction reaction
+           |
+      5M BOS                  (BODY close, not wick)
+           |
+              STAGE 2  —  1M entry
+   Shift to 1M
+           |
+   Recent low forms           (blue/black wick rule)
+           |
+   1M BOS downside            (the retracement, against the 5M bias)
+           |
+   Recent high/low again      (blue/black wick rule)
+           |
+   1M BOS upside              (back with the 5M bias)
+           |
+   Other index: BOS or IFVG?  --- NO ---> NO TRADE
+           |
+          YES
+           |
+       EXECUTION
 ```
+
+<!-- NOTE ON CONFLUENCE 4: my strategy overview lists "SMT Divergence" as one of the four -->
+<!-- confluences, but step 10 above is not a divergence — it is a CONFIRMATION that the other -->
+<!-- index is doing the SAME thing. Those are opposite ideas. -->
+<!-- TODO: ask me — are these one rule or two? If SMT divergence is a separate requirement, -->
+<!-- it needs its own numbered condition and its own definition. Not merging them on my own. -->
 
 ## Entry mechanic
 
-<!-- TODO: ask me — NOT DEFINED ANYWHERE IN THE STRATEGY DOCUMENT. -->
-<!-- The document ends at "identify the opposite-side liquidity opportunity" and never says how -->
-<!-- I get filled. Market order on the BOS close? Limit at the IFVG? Retrace to the BOS level? -->
-<!-- One method, not a choice of three. Without this there is no setup, only an observation. -->
+**The TRIGGER is defined** (stage 2, conditions 6–10): the second 1M BOS back in the direction of
+the 5M bias, with the other index confirming by BOS or IFVG.
+
+**The FILL is not.** <!-- TODO: ask me -->
+<!-- The trigger tells me WHEN. It does not tell me at WHAT PRICE I get in. Candidates: -->
+<!--   (a) Market order on the close of the 1M BOS candle -->
+<!--   (b) Limit order at the 1M IFVG / imbalance left by that BOS -->
+<!--   (c) Limit order at the retracement low that the BOS broke away from -->
+<!-- These produce different entry prices, therefore different stop distances, therefore -->
+<!-- different position sizes and different R:R on the same trade. One method, not three. -->
+
+<!-- ALSO UNDEFINED: does the 1M BOS require a BODY close like the 5M one does? -->
+<!-- The body-close rule is stated four times in capitals for the 5M and never mentioned for -->
+<!-- the 1M. On a 1M chart the difference between wick and body decides most of these calls. -->
+<!-- TODO: ask me. -->
 
 ## Stop placement rule
 
@@ -132,9 +193,22 @@ the R:R.
 - The level was already interacted with by a forward candle → it is not fresh liquidity
   (`strategy/01-market-structure.md`, forward-candle interaction rule).
 - Time is outside the permitted window.
+- **The other index gives neither a BOS nor an IFVG** at stage 2 condition 10.
+- The 1M retracement sequence never completes — no 1M counter-BOS, or no 1M BOS back in the
+  direction of the 5M bias.
 
 <!-- TODO: ask me — if the sweep happens at 09:42 but BOS does not confirm until 10:15, -->
 <!-- is the idea still live, or dead? A time limit between sweep and confirmation. -->
+
+<!-- TODO: ask me — HOW DEEP MAY THE 1M RETRACEMENT GO before the idea is dead? -->
+<!-- Stage 2 deliberately waits for price to move AGAINST the 5M bias. Nothing in my strategy -->
+<!-- says when that retracement has gone too far. On a long, if the 1M downside BOS runs all the -->
+<!-- way back through the swept low, the sweep itself has failed — but as written I would still -->
+<!-- be waiting for a 1M BOS back up and calling it a valid entry. -->
+<!-- This needs a hard price level, not a feel. -->
+
+<!-- TODO: ask me — is there a time limit on the 1M sequence? It has four steps (recent low, -->
+<!-- counter-BOS, recent high/low, BOS back). At 1M that could resolve in 6 minutes or 90. -->
 
 ## Invalidation AFTER entry
 
