@@ -1,3 +1,4 @@
+//@version=6
 // ============================================================================
 // COCKPIT — LIQUIDITY MARKING
 //
@@ -40,7 +41,6 @@
 // My notes say UTC-4, which is only correct in summer.
 // ============================================================================
 
-//@version=6
 indicator("Cockpit — Liquidity Marking", "Cockpit", overlay = true, max_lines_count = 500, max_labels_count = 500)
 
 TZ = "America/New_York"
