@@ -89,6 +89,49 @@ fast pass is even legal. → `risk/prop-firm-rules.md`
 - [ ] Do I subtract costs before calculating R?
 - [ ] Hard cap on contracts/lots per instrument
 
+## GAP AUDIT — 2026-08-26
+
+**Findings from auditing the repo against my own style: one trade a day, NY open only,
+NQ/ES only, static stop, single exit, 1:1.5 minimum.**
+
+### CRITICAL — the window and the sequence are incompatible
+
+My stated execution window is 09:40-09:45. My entry sequence needs, minimum:
+5M BOS body close (09:40 candle at best) -> 1M recent low (09:42) -> 1M BOS down (09:43)
+-> re-identify (09:44-45) -> 1M BOS up (09:46).
+
+**Entry cannot occur before ~09:46. Realistically 09:50-10:00.**
+As written the setup fires zero times. My document says 09:40-09:45 is where I BEGIN searching,
+which implies a longer window, but the end time was never stated.
+
+- [ ] **Last permitted entry time.** Highest priority item in this file. → `02-session-plan.md`
+
+### Still blocking every trade
+
+- [ ] Stop placement rule → `setups/a-plus.md`
+- [ ] Target rule → `setups/a-plus.md`
+- [ ] Entry fill method → `setups/a-plus.md`
+
+### Gaps my style specifically creates
+
+- [ ] **No way to record a no-trade day.** Most of my days will have no trade. `data/trades.csv`
+      has no row for "watched, no valid setup". A correctly-skipped day is my best process day
+      and is currently invisible to `/review`.
+- [ ] **No way to build data before risking money.** ~10 trades/month means a 30-50 trade sample
+      takes 3-5 months. I would pass or fail the challenge before knowing if the edge is real.
+      `scripts/stats.py` already accepts a path argument, so a separate `data/backtest.csv`
+      from TradingView replay needs no code changes.
+- [ ] **Which index when both NQ and ES qualify?** Happens constantly, currently a coin flip.
+- [ ] **Review cadence.** At 2-3 trades/week a weekly performance review is noise.
+      Process compliance weekly, performance monthly, is the honest split.
+
+### Observations, not gaps
+
+<!-- §3 weekly loss (3 losing days) barely binds at 2-3 trades per week: I would have to lose -->
+<!-- nearly every trading day to trigger it. It is a backstop, not an active constraint. -->
+
+---
+
 ## BLOCKING — THE STRATEGY DOCUMENT DID NOT INCLUDE THESE
 
 **These make the difference between a described model and a tradeable one.**
