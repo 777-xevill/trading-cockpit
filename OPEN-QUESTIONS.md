@@ -26,6 +26,13 @@ Rules for working through this file:
 - [x] Entry TRIGGER — **second 1M BOS with the 5M bias + other index confirms** → `a-plus.md`
 - [x] Other-index gate — **mandatory**: no BOS or IFVG on the other index = no trade → `a-plus.md`
 - [x] BOS confirmation — **full body close on EVERY timeframe** (5M and both 1M legs) → `01-market-structure.md`
+- [x] **Universal definitions given 2026-08-26** → `01-market-structure.md`
+- [x] High / Low — **wick extreme, never the body**
+- [x] "Together" — **consecutive adjacent candles of different colour**
+- [x] "Recent" — **latest valid structure**, not a candle count
+- [x] Liquidity hit — **wick touch**; body close beyond = BOS. Two different events.
+- [x] BOS level — **most recent valid structural high/low immediately before the break**
+- [x] 4H lookback — **visible levels from active structure**; stays hand-drawn (no mechanical rule)
 - [x] Max total open risk — **1.0 R** (follows from one position at 1R) → §6
 - [x] B-grade risk — **same as A+**, no reduction → §1
 - [x] Risk basis — **starting balance, $50,000, fixed** → §1
@@ -97,10 +104,15 @@ Answer these before anything else in this file.
       *Stage 2 waits for price to move against the 5M bias. Nothing says when it has gone too far.*
 - [ ] **Target logic** — which liquidity, specifically → `a-plus.md`
       *"Opposite-side liquidity" is stated; which level in the hierarchy is not.*
-- [ ] **BOS beyond WHICH level?** — the load-bearing trigger, currently untestable → `01-market-structure.md`
 - [ ] **Last permitted entry time** — is the window 09:40–09:45, or does 09:40 only start it? → `02-session-plan.md`
 
 ## THEN — STRATEGY DEFINITIONS
+
+- [ ] Confirm: within a qualifying blue/black pair, does colour select anything, or does it
+      reduce to "mark the higher wick"? (See the derivation in `01-market-structure.md`.)
+- [ ] Must the recent high and recent low come from the SAME blue/black pair?
+- [ ] Is condition 3 ("reaction") still separate from condition 4 (BOS), or redundant now?
+- [ ] Do I want BOS markers on the indicator? (Off by default — marks the trigger, not the prep.)
 
 - [ ] **IFVG** — never defined anywhere → `01-market-structure.md`
 - [ ] **SMT divergence vs the other-index gate — one rule or two?** → `01-market-structure.md`
@@ -110,10 +122,6 @@ Answer these before anything else in this file.
 - [ ] Must the other index's confirmation be in the same direction as my trade?
 - [ ] Is there a time limit on the four-step 1M sequence?
 - [ ] How many of the four confluences must align to take a trade?
-- [ ] "Candle high" in the blue/black rule — wick high or body high? Changes where the line goes
-- [ ] Which candles count as "together" for the blue/black rule — adjacent only, or any pair?
-- [ ] "Recent" 5M high/low — how far back, as a number
-- [ ] "Interacted with" for the forward-candle rule — wick touch or body close through?
 - [ ] Does the liquidity hierarchy rank importance, or just group levels?
 - [ ] Time limit between the sweep and BOS confirmation before the idea is dead
 - [ ] NQ and ES both signal in the same window — which one do I take? (One trade per day, §5)

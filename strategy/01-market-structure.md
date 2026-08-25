@@ -25,6 +25,28 @@ My execution is based on four major confluences:
 
 ---
 
+## UNIVERSAL DEFINITIONS
+
+**Given 2026-08-26. These override every looser wording elsewhere in this repo.**
+Wherever this strategy says High, Low, Recent High, Recent Low, Candle High, Candle Low,
+1M/5M/1H High or Low, the following always apply:
+
+| Term | Definition |
+|---|---|
+| **High / Low** | The **wick extreme**. Never the body. |
+| **Candle High** | Highest point of the upper wick |
+| **Candle Low** | Lowest point of the lower wick |
+| **Blue / Black "together"** | **Consecutive, adjacent** candles of **different** colour |
+| **Recent** | The **most recent valid structure**, not a fixed candle count |
+| **Liquidity hit** | **Wick touch** - a body close is NOT required |
+| **BOS** | **Body close beyond** the structural level |
+
+**Liquidity hit and BOS are two different events on purpose.** A wick reaching a level *takes*
+that liquidity. A body closing beyond a level *breaks* structure. One is the sweep, the other is
+the confirmation. Do not collapse them.
+
+---
+
 ## Timeframes I use
 
 | Purpose | Timeframe |
@@ -112,7 +134,19 @@ The 4H levels are treated as major higher-timeframe liquidity.
 
 I also track **4H body opening** and **4H body closing** as higher-timeframe liquidity (see hierarchy).
 
-**How many 4H candles back do I mark?** <!-- TODO: ask me -->
+### 4H lookback - active structure, not a candle count
+
+Resolved 2026-08-26.
+
+> "I mark the relevant visible 4H highs and lows from the current active market structure.
+> I do not use an arbitrary fixed number of candles such as the last 5, 10, or 20 candles."
+
+**A 4H level stays valid until price interacts with it** per the forward-candle rule - i.e. until a
+wick reaches it. Once hit, it is no longer fresh and I do not draw a duplicate line from it.
+
+<!-- NOTE FOR THE INDICATOR: "visible, from current active structure" is a judgement a human -->
+<!-- makes by looking at the chart. It has no mechanical definition, so 4H levels stay HAND-DRAWN. -->
+<!-- That is a legitimate outcome, not a gap - but it means 4H marking cannot be automated. -->
 **Which 4H body open/close — the current candle, the previous one, a specific session's?** <!-- TODO: ask me -->
 
 ---
@@ -158,22 +192,48 @@ This rule applies on **three timeframes**:
 
 **It does NOT apply on the 4H**, which uses actual candle extremes.
 
-### UNRESOLVED — what "candle high" means here
+### "Candle high" means the WICK extreme
 
-<!-- TODO: ask me — this changes which price the line goes on, so it matters. -->
-<!-- The rule compares WICK highs, then says to mark the "candle high" of the winner. -->
-<!--   Reading A: "candle high" = that candle's wick high. Then the rule reduces to -->
-<!--              "mark whichever wick is higher", and the blue/black colour adds nothing. -->
-<!--   Reading B: "candle high" = that candle's BODY high (open or close, whichever is higher). -->
-<!--              Then the colour matters, because body high differs from wick high. -->
-<!-- The 4H hierarchy tracks "body opening" and "body closing" separately, which suggests the -->
-<!-- body/wick distinction is real in my system. Not guessing which. -->
+Resolved 2026-08-26.
 
-### Which candles count as "together"?
+> "Whenever I say candle high or candle low, I always mean the wick extreme, not the candle body."
 
-<!-- TODO: ask me — adjacent candles only, or any blue/black pair in a swing? -->
-<!-- Two candles, or a group? The document says "part of the same comparison structure" -->
-<!-- without defining that structure. /checktrade cannot test this as written. -->
+So in the tables above, "Black candle high" means that candle's **upper wick tip**.
+
+### "Together" means CONSECUTIVE candles of different colour
+
+Resolved 2026-08-26.
+
+> "The Blue/Black rule applies when a Blue candle and a Black candle are adjacent/consecutive
+> candles in the same timeframe."
+
+Adjacent only. Not any pair in a swing, not a group.
+
+| Pair | Rule applies? |
+|---|---|
+| Blue then Black | **Yes** |
+| Black then Blue | **Yes** |
+| Blue then Blue | No |
+| Black then Black | No |
+
+### What these two definitions imply - CHECK THIS
+
+<!-- Not an invention. It is what my own two definitions produce when combined, and it matters -->
+<!-- because it is what the Pine indicator has to implement. -->
+<!-- If candle high = wick extreme, and I mark whichever of the two candles has the higher wick, -->
+<!-- then within a qualifying pair the COLOUR selects nothing. Both cases reduce to: -->
+<!--     mark the higher of the two upper wicks, and the lower of the two lower wicks. -->
+<!-- The colour still does real work, but at the previous step: it acts as a FILTER deciding -->
+<!-- WHICH PAIRS create a level at all. Blue+Blue and Black+Black pairs create nothing. -->
+<!-- TODO: ask me - confirm that reading. If the colour is meant to select the candle even when -->
+<!-- its wick is lower, then one of the two definitions above needs rewording. -->
+
+**Working statement, pending that confirmation:**
+
+1. Take each pair of adjacent candles.
+2. If they are the same colour, no level is created.
+3. If they are different colours, mark the **higher upper wick** as the high and the
+   **lower lower wick** as the low.
 
 ---
 
@@ -192,8 +252,22 @@ creating additional lines through that same interaction.
 
 > "One meaningful liquidity area > multiple redundant lines."
 
-**Does "interacted with" mean a wick touch, or a body close through?** <!-- TODO: ask me -->
-<!-- This is the same wick/body question as above and it decides whether a level is still live. -->
+### "Interacted with" means a WICK TOUCH
+
+Resolved 2026-08-26.
+
+> "A liquidity level is considered interacted with when a future candle's wick reaches or passes
+> through the marked liquidity level. A body close is not required for the level to be considered hit."
+
+| Event | Meaning |
+|---|---|
+| **Wick touch** | Liquidity **interacted with / hit**. Level is no longer fresh. |
+| **Body close beyond** | Liquidity **fully broken** - structure confirmation, i.e. BOS |
+
+**These are two different concepts and must not be merged.**
+
+Once a forward candle has wicked into a marked level, that level is no longer a fresh untouched
+liquidity reference, and I do not create a duplicate line from the same already-hit area.
 
 ---
 
@@ -204,9 +278,25 @@ Used for short-term liquidity. Marked with the blue/black rule.
 > "The 5M high/low marking must not use old or previous market data unnecessarily. I am interested
 > in the recent high and low immediately relevant to the current execution."
 
-**How far back is "recent"?** <!-- TODO: ask me -->
-<!-- A number of candles, a time window, or since a specific session line? -->
-<!-- Without a number, "recent" is decided in the moment, which is where hindsight lives. -->
+### "Recent" means the latest valid structure - not a candle count
+
+Resolved 2026-08-26.
+
+> "When I say Recent High or Recent Low, I always mean the most recent valid high or low created
+> by the latest relevant Blue/Black candle structure. I do not use an arbitrary number of previous
+> candles."
+
+> "Always focus on the latest valid structure immediately before the current price action."
+
+For 5M and 1M execution, old highs and lows are **ignored** unless they are still separately marked
+as a higher-timeframe liquidity level.
+
+**In practice this is codeable:** scan backwards for the most recent adjacent different-colour pair;
+that pair supplies the recent high and the recent low.
+
+<!-- TODO: ask me - must the recent high and the recent low come from the SAME pair, or is each -->
+<!-- taken from the most recent pair that produced one? Usually the same pair gives both, but -->
+<!-- after a BOS the structure is re-identified and they can diverge. -->
 
 ---
 
@@ -232,11 +322,24 @@ with** it (the entry trigger). Both break a recent high/low identified by the bl
 
 **Both 1M BOS legs require a FULL BODY CLOSE.** Confirmed 2026-08-26. Same standard as the 5M.
 
-**Structure broken relative to WHAT, exactly?** <!-- TODO: ask me -->
-<!-- The document never says which level the body must close beyond. Candidates: the last 5M swing -->
-<!-- low before the sweep, the most recent 5M structural low, an internal low. -->
-<!-- This is the single most important undefined item in the strategy: it is the difference between -->
-<!-- a testable trigger and a judgement call, and it is the trigger the whole model rests on. -->
+### BOS is measured against the MOST RECENT VALID STRUCTURE
+
+Resolved 2026-08-26. This was the load-bearing gap; it is now closed.
+
+> "The BOS level is always the most recent valid structural high or low being monitored immediately
+> before the break."
+
+> "The BOS level should always come from the latest relevant structure, not an old unrelated high or low."
+
+| Direction | Condition |
+|---|---|
+| **Bullish BOS** | A candle's **closing price** is **above** the most recent valid structural high |
+| **Bearish BOS** | A candle's **closing price** is **below** the most recent valid structural low |
+
+The structural high/low is the one produced by the latest qualifying blue/black pair, per the
+"Recent" definition above.
+
+**Wick through level = no BOS. Body close beyond level = BOS.** On every timeframe.
 
 ---
 

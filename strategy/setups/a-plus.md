@@ -54,22 +54,29 @@ are all **no**.
 
 1. **Time is inside the permitted execution window.** <!-- TODO: ask me — window end time undefined -->
 
-2. **One of my pre-marked liquidity levels has been hit**, confirmed on the **5M** timeframe.
-   Not the 1M. If no marked level has been hit, I keep waiting and there is no trade.
+2. **One of my pre-marked liquidity levels has been hit** — a **wick reaching or passing through
+   the level**. A body close is not required. Confirmed on the **5M**, never the 1M.
+   The level must have been **fresh** — not already wicked into earlier (forward-candle rule).
+   If no fresh marked level has been hit, I keep waiting and there is no trade.
 
 3. **Price has shown a reaction in the OPPOSITE direction to the sweep.**
    A liquidity hit is not an entry signal.
    > "Liquidity Hit → Wait for Opposite-Direction Confirmation"
-   <!-- TODO: ask me — what makes a "reaction" objectively present, before BOS confirms it? -->
-   <!-- As written this is a judgement call sitting between two testable conditions. -->
 
-4. **5M BOS in the direction opposite the sweep, confirmed by a BODY CANDLE CLOSE — not a wick.**
-   This is the priority confirmation.
-   - High swept → **bearish** 5M BOS with body close
-   - Low swept → **bullish** 5M BOS with body close
+   <!-- TODO: ask me — is this still a SEPARATE condition? With "liquidity hit" now defined as a -->
+   <!-- wick touch and "BOS" as a body close beyond the latest structure, condition 4 IS the -->
+   <!-- objective test of a reaction. As written, 3 is a subjective restatement of 4. -->
+   <!-- Either delete it, or give it its own testable definition. Not deciding that for you. -->
 
-   <!-- TODO: ask me — BOS beyond WHICH level? Undefined. See strategy/01-market-structure.md. -->
-   <!-- This is the load-bearing condition of the entire setup and it is not yet testable. -->
+4. **5M BOS in the direction opposite the sweep — a BODY CLOSE beyond the most recent valid
+   structural level.**
+
+   - High swept → **bearish** 5M BOS: closing price **below** the most recent valid structural low
+   - Low swept → **bullish** 5M BOS: closing price **above** the most recent valid structural high
+
+   The structural level comes from the **latest qualifying blue/black pair** — see the Universal
+   Definitions in `strategy/01-market-structure.md`. Never an old unrelated high or low.
+   A wick through the level is not a BOS.
 
 5. **5M IFVG** — optional, supporting.
    Must develop after or around the liquidity interaction and support the move away from it.
@@ -90,12 +97,14 @@ from `strategy/01-market-structure.md`.
 
 Written for a **long** (a marked low was swept, 5M BOS was bullish). Reverse everything for a short.
 
-6. **A recent LOW forms on the 1M**, identified by the blue/black wick rule, including its relevant wick.
+6. **A recent LOW forms on the 1M** — the lower wick of the **most recent adjacent
+   different-colour candle pair**. Old lows are ignored.
 
 7. **That recent low is broken to the downside by a 1M BOS, confirmed by a FULL BODY CLOSE.**
    Not a wick through the level. This is the retracement leg — it moves *against* the 5M bias, on purpose.
 
-8. **The most recent high/low is identified again** on the 1M, same blue/black wick rules.
+8. **The structure is re-identified** on the 1M — the newest qualifying blue/black pair *after*
+   the retracement break. A fresh read, not the level from condition 6.
 
 9. **A 1M BOS back to the UPSIDE, confirmed by a FULL BODY CLOSE** — back in the direction of
    the 5M bias. Wick closes do not count here either.

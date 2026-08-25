@@ -32,20 +32,30 @@ deleted, per "One meaningful liquidity area > multiple redundant lines."
 **Timezone:** uses `America/New_York`, so it follows US daylight saving on its own. My notes say
 UTC-4, which is only correct in summer — the indicator does not have that bug.
 
-## What it does NOT draw, and why
+## What it draws now
 
-Each of these needs a definition I have not written yet. Code cannot be vague, so these stay out
-rather than being guessed at.
+Since the Universal Definitions of 2026-08-26, most of the marking routine is mechanical:
 
-| Not drawn | The missing definition |
+| | |
 |---|---|
-| Blue/black wick levels (1H, 5M, 1M) | Is "candle high" the wick high or the body high? What counts as "together"? |
-| Recent 5M / 1M high and low | "Recent" has no number — bars or minutes? |
-| Forward-candle interaction | Is "interacted with" a wick touch or a body close through? |
-| 4H high / low | How many candles back? |
-| BOS markers | Body close beyond **which** level? |
+| Vertical lines | 03:00 London, 09:30 New York, 18:00 Asia |
+| 08:00 | Deliberately absent - invisible observation boundary |
+| Asia range | High/low 18:00 -> 03:00, carried forward |
+| London range | High/low 03:00 -> 08:00, carried forward |
+| **Blue/Black structure** | Adjacent different-colour pairs only. High = higher upper wick, low = lower lower wick. |
+| **Forward-candle interaction** | A level that gets **wicked** turns grey and dashed, labelled "hit". It stops extending. |
+| Execution window | 09:40-09:45 shaded |
 
-All five are open items in `OPEN-QUESTIONS.md`.
+Add it on whichever timeframe you are reading - 1H, 5M or 1M. The blue/black rule is identical on
+all three, so one indicator covers them.
+
+## What it deliberately does NOT draw
+
+| Not drawn | Why |
+|---|---|
+| 4H high / low | My rule is "visible highs and lows from the current active market structure". That is a judgement made by eye, with no mechanical definition. Stays hand-drawn - and that is a valid answer, not a gap. |
+| BOS markers | Fully defined and easy to add. Left out because marking my levels is preparation, while marking my BOS is marking my trigger. A chart that lights up when the setup fires reads as a signal regardless of the label. My call to make in review. |
+| Entries | Never. |
 
 ## The boundary
 
