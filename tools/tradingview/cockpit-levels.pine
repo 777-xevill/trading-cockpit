@@ -1,0 +1,176 @@
+// ============================================================================
+// COCKPIT — SESSION LIQUIDITY
+//
+// Draws the parts of my marking routine that are FULLY DEFINED in
+// strategy/01-market-structure.md and strategy/02-session-plan.md.
+//
+// This is chart preparation, not a signal. It marks levels I defined.
+// It never says enter, exit, long or short, and it never will.
+//
+// IMPLEMENTED (my rules, unambiguous):
+//   * Vertical lines at 03:00 London, 09:30 New York, 18:00 Asia
+//   * NO 08:00 line — deliberately absent, it is an invisible boundary
+//   * Asia high/low     18:00 -> 03:00
+//   * London high/low   03:00 -> 08:00
+//   * Execution window highlight 09:40-09:45
+//   * One range on the chart at a time — old lines are deleted, per
+//     "One meaningful liquidity area > multiple redundant lines"
+//
+// NOT IMPLEMENTED — my own rules are not defined enough to code:
+//   * Blue/black wick rule (1H, 5M, 1M)
+//       -> "candle high" is undefined: wick high or body high?
+//       -> "together" is undefined: adjacent candles only, or any pair?
+//   * Recent 5M / 1M high and low
+//       -> "recent" has no number. Code needs a bar count or a time window.
+//   * Forward-candle interaction rule (stop marking a level once taken)
+//       -> "interacted with" is undefined: wick touch or body close through?
+//   * 4H high/low
+//       -> "how many candles back" is undefined
+//   * BOS markers
+//       -> "body close beyond WHICH level" is undefined
+//
+// Every gap above is an open item in OPEN-QUESTIONS.md. Nothing here was
+// guessed at. A blank level is honest; an invented one puts a line on my
+// chart that came from someone else's logic.
+//
+// TIMEZONE: uses "America/New_York", so it follows US daylight saving
+// automatically. My files say UTC-4, which is only correct in summer.
+// See the DST warning in strategy/02-session-plan.md.
+// ============================================================================
+
+//@version=6
+indicator("Cockpit — Session Liquidity", "Cockpit Levels", overlay = true,
+     max_lines_count = 500, max_labels_count = 500, max_boxes_count = 500)
+
+TZ = "America/New_York"
+
+// ─────────────────────────────────────────────────────── inputs
+gV = "Session vertical lines"
+vAsia   = input.bool(true, "18:00  Asia open",     group = gV)
+vLondon = input.bool(true, "03:00  London open",   group = gV)
+vNY     = input.bool(true, "09:30  New York open", group = gV)
+// 08:00 has no input on purpose. It is an invisible observation boundary.
+
+gR = "Session ranges"
+rAsia   = input.bool(true, "Asia high/low   (18:00 -> 03:00)", group = gR)
+rLondon = input.bool(true, "London high/low (03:00 -> 08:00)", group = gR)
+showLbl = input.bool(true, "Label the levels",                 group = gR)
+
+gW = "Execution window"
+wShow = input.bool(true, "Highlight 09:40-09:45", group = gW)
+
+gC = "Colours"
+cAsia   = input.color(color.new(color.orange, 0), "Asia",      group = gC)
+cLondon = input.color(color.new(color.blue,   0), "London",    group = gC)
+cVert   = input.color(color.new(color.gray,  40), "Verticals", group = gC)
+cWin    = input.color(color.new(color.teal,  85), "Window",    group = gC)
+
+// ─────────────────────────────────────────────────────── clock
+h    = hour(time, TZ)
+m    = minute(time, TZ)
+mins = h * 60 + m
+
+inAsia   = mins >= 1080 or mins < 180          // 18:00 -> 03:00
+inLondon = mins >= 180  and mins < 480         // 03:00 -> 08:00
+inWindow = mins >= 580  and mins < 585         // 09:40 -> 09:45
+
+startAsia   = inAsia   and not inAsia[1]
+startLondon = inLondon and not inLondon[1]
+startNY     = mins >= 570 and not (mins[1] >= 570 and mins[1] < 960)   // 09:30
+
+// ─────────────────────────────────────────────────────── vertical lines
+var line vlA = na
+var line vlL = na
+var line vlN = na
+
+drawVert(bool trigger, line prev, color c) =>
+    line out = prev
+    if trigger and barstate.isconfirmed
+        line.delete(prev)
+        out := line.new(time, low, time, high, xloc = xloc.bar_time,
+             extend = extend.both, color = c, style = line.style_dotted, width = 1)
+    out
+
+if vAsia
+    vlA := drawVert(startAsia, vlA, cVert)
+if vLondon
+    vlL := drawVert(startLondon, vlL, cVert)
+if vNY
+    vlN := drawVert(startNY, vlN, cVert)
+
+// ─────────────────────────────────────────────────────── Asia range
+var float aHi = na
+var float aLo = na
+var line  aHiL = na
+var line  aLoL = na
+var label aHiT = na
+var label aLoT = na
+
+if rAsia
+    if startAsia
+        // one range at a time — clear the previous session's lines
+        line.delete(aHiL),  line.delete(aLoL)
+        label.delete(aHiT), label.delete(aLoT)
+        aHi  := high
+        aLo  := low
+        aHiL := line.new(time, aHi, time, aHi, xloc = xloc.bar_time, color = cAsia, width = 1)
+        aLoL := line.new(time, aLo, time, aLo, xloc = xloc.bar_time, color = cAsia, width = 1)
+        if showLbl
+            aHiT := label.new(time, aHi, "Asia High", xloc = xloc.bar_time,
+                 style = label.style_label_left, color = color.new(cAsia, 85),
+                 textcolor = cAsia, size = size.tiny)
+            aLoT := label.new(time, aLo, "Asia Low", xloc = xloc.bar_time,
+                 style = label.style_label_left, color = color.new(cAsia, 85),
+                 textcolor = cAsia, size = size.tiny)
+    else if inAsia and not na(aHiL)
+        aHi := math.max(aHi, high)
+        aLo := math.min(aLo, low)
+        line.set_y1(aHiL, aHi), line.set_y2(aHiL, aHi)
+        line.set_y1(aLoL, aLo), line.set_y2(aLoL, aLo)
+
+    // carry the range forward into London and New York
+    if not na(aHiL)
+        line.set_x2(aHiL, time)
+        line.set_x2(aLoL, time)
+        if showLbl and not na(aHiT)
+            label.set_x(aHiT, time), label.set_y(aHiT, aHi)
+            label.set_x(aLoT, time), label.set_y(aLoT, aLo)
+
+// ─────────────────────────────────────────────────────── London range
+var float lHi = na
+var float lLo = na
+var line  lHiL = na
+var line  lLoL = na
+var label lHiT = na
+var label lLoT = na
+
+if rLondon
+    if startLondon
+        line.delete(lHiL),  line.delete(lLoL)
+        label.delete(lHiT), label.delete(lLoT)
+        lHi  := high
+        lLo  := low
+        lHiL := line.new(time, lHi, time, lHi, xloc = xloc.bar_time, color = cLondon, width = 1)
+        lLoL := line.new(time, lLo, time, lLo, xloc = xloc.bar_time, color = cLondon, width = 1)
+        if showLbl
+            lHiT := label.new(time, lHi, "London High", xloc = xloc.bar_time,
+                 style = label.style_label_left, color = color.new(cLondon, 85),
+                 textcolor = cLondon, size = size.tiny)
+            lLoT := label.new(time, lLo, "London Low", xloc = xloc.bar_time,
+                 style = label.style_label_left, color = color.new(cLondon, 85),
+                 textcolor = cLondon, size = size.tiny)
+    else if inLondon and not na(lHiL)
+        lHi := math.max(lHi, high)
+        lLo := math.min(lLo, low)
+        line.set_y1(lHiL, lHi), line.set_y2(lHiL, lHi)
+        line.set_y1(lLoL, lLo), line.set_y2(lLoL, lLo)
+
+    if not na(lHiL)
+        line.set_x2(lHiL, time)
+        line.set_x2(lLoL, time)
+        if showLbl and not na(lHiT)
+            label.set_x(lHiT, time), label.set_y(lHiT, lHi)
+            label.set_x(lLoT, time), label.set_y(lLoT, lLo)
+
+// ─────────────────────────────────────────────────────── execution window
+bgcolor(wShow and inWindow ? cWin : na, title = "09:40-09:45 execution window")
