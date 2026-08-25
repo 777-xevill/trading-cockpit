@@ -104,7 +104,9 @@ My stated execution window is 09:40-09:45. My entry sequence needs, minimum:
 As written the setup fires zero times. My document says 09:40-09:45 is where I BEGIN searching,
 which implies a longer window, but the end time was never stated.
 
-- [ ] **Last permitted entry time.** Highest priority item in this file. → `02-session-plan.md`
+- [ ] **Last permitted entry time.** *(skipped 2026-08-26 — do not raise again unless I ask)*
+      Still the highest-priority item. Until it exists, `/checktrade` cannot confirm the
+      session window and returns INCOMPLETE. → `02-session-plan.md`
 
 ### Still blocking every trade
 
