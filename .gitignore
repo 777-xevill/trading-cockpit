@@ -6,3 +6,8 @@ venv/
 screenshots/
 *.env
 .env
+
+# The journal web app is its own git repo, pushed separately to
+# github.com/777-xevill/xetrade. Tracking it here would create a broken
+# nested-repo reference.
+journal-app/
