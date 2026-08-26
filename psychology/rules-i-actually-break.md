@@ -33,3 +33,7 @@
 | Rule | Times broken | Total cost in R |
 |---|---|---|
 |  |  |  |
+
+| 2026-08-26 | No journal file and no /checktrade before entry | "i don't explain everything cause of time" | -1.00R |
+| 2026-08-26 | Stop placed with no written stop rule | — | (same trade) |
+| 2026-08-26 | Target set with no written target rule | — | (same trade) |

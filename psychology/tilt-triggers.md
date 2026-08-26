@@ -44,3 +44,5 @@
 ## Pattern notes
 
 <!-- Updated during /review only. -->
+
+| 2026-08-26 | 20:26 | Stopped out, third losing day of the week | "totally fucked" | Logged the trade, stopped for the week per §3 | No — weekly limit enforced | -1.00R on the day |
