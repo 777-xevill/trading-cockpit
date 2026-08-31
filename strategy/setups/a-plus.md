@@ -19,6 +19,9 @@
 > "I trade only: NASDAQ, S&P 500."
 
 <!-- TODO: ask me — futures (NQ/ES) or CFDs? The repo has files for both NQ and ES futures. -->
+<!-- SEE strategy/reference/mentor-entry-model.md §6 — a stream where exactly this went wrong: -->
+<!-- traded the index that made the SMT, the cleaner target was on the other one, stopped out. -->
+<!-- It shows the cost of a wrong answer. It does not supply the answer. -->
 <!-- TODO: ask me — I take ONE trade per day (risk/risk-rules.md §5). If both NQ and ES present -->
 <!-- a valid setup in the same window, which do I take? This will happen often, because the two -->
 <!-- indices move together and I am watching both for SMT. It needs an answer, not a preference. -->
@@ -151,6 +154,9 @@ Written for a **long** (a marked low was swept, 5M BOS was bullish). Reverse eve
 <!-- index is doing the SAME thing. Those are opposite ideas. -->
 <!-- TODO: ask me — are these one rule or two? If SMT divergence is a separate requirement, -->
 <!-- it needs its own numbered condition and its own definition. Not merging them on my own. -->
+<!-- CANDIDATE ANSWER OBSERVED 2026-09-01, NOT ADOPTED: the mentor's stream uses BOTH, at -->
+<!-- different stages — DIVERGENCE to choose which index to trade, ALIGNMENT to justify the -->
+<!-- target. That would make them two rules. See strategy/reference/mentor-entry-model.md §3a. -->
 
 ## Entry mechanic
 
@@ -177,10 +183,16 @@ One confirmation rule across every timeframe — there is nothing to remember pe
 <!-- Both are unusable without a rule that produces a single price. -->
 <!-- Candidates I have NOT chosen for you: beyond the swept wick; beyond the swing that BOS broke; -->
 <!-- beyond the IFVG. Name one. -->
+<!-- CHECKED 2026-09-01 AGAINST THE MENTOR'S STREAM: his chat asked "where's your stop loss" -->
+<!-- five times and he never answered, in the whole stream. THIS GAP WILL NOT BE FILLED FROM -->
+<!-- THAT SOURCE. It has to come from me. See strategy/reference/mentor-entry-model.md §5. -->
 
 ## Target logic
 
 <!-- TODO: ask me — implied but not stated. -->
+<!-- CANDIDATE HIERARCHY OBSERVED 2026-09-01, NOT ADOPTED: relative equal lows / triple equal -->
+<!-- lows -> untapped 1H lows -> session lows, taken as a cascade. His draws, not confirmed as -->
+<!-- mine. See strategy/reference/mentor-entry-model.md §3b. -->
 <!-- The document says the 5M structure identifies "the next liquidity area" and that I then look -->
 <!-- for "the opposite-side liquidity opportunity". Which liquidity, specifically? -->
 <!-- The nearest opposing marked level? The next one in the hierarchy? A 4H level only? -->

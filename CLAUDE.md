@@ -31,6 +31,7 @@ Hard rules for your behavior in this project, permanently:
 | Conditions that kill a trade regardless of setup | `strategy/setups/no-trade-conditions.md` |
 | Instrument quirks, spreads, hours, behaviour | `strategy/instruments/{nq,es,xauusd,us100}.md` |
 | When a thesis is dead | `strategy/invalidation.md` |
+| Someone else's model I am studying, NOT my rules | `strategy/reference/` |
 | Risk %, daily loss limit, trade caps, correlation | `risk/risk-rules.md` |
 | Challenge constraints, drawdown, consistency | `risk/prop-firm-rules.md` |
 | Contracts/lots arithmetic, tick values | `risk/sizing.md` |

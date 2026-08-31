@@ -89,6 +89,40 @@ fast pass is even legal. → `risk/prop-firm-rules.md`
 - [ ] Do I subtract costs before calculating R?
 - [ ] Hard cap on contracts/lots per instrument
 
+## FROM THE MENTOR'S STREAM — added 2026-09-01
+
+**Source filed at `strategy/reference/mentor-entry-model.md`. Nothing from it has been
+written into a rule file.** The transcript is someone else trading live and being stopped
+out; it is not a strategy document. These are the questions it raises, not answers.
+
+- [ ] **Is SMT divergence a SEPARATE numbered condition** in `a-plus.md`, distinct from the
+      cond. 10 other-index confirmation? The stream used both at different stages —
+      divergence to pick the instrument, alignment to justify the target. My file has
+      carried this contradiction as a TODO since 2026-08-26. → `setups/a-plus.md`
+- [ ] **When NQ and ES both qualify, which do I trade?** He took the one that made the SMT;
+      the cleaner target was on the other one; he was stopped out. This is already on the
+      gap-audit list below as "currently a coin flip". The stream shows the cost, not the
+      answer. → `setups/a-plus.md`
+- [ ] **What is my target hierarchy?** He named relative equal lows, triple equal lows and
+      untapped 1H lows, taken as a cascade. Are those my draws or just his?
+      → `setups/a-plus.md` (target logic, currently blank)
+- [ ] **Does a re-entry after a stop-out enter my model?** His does — "got stopped out of
+      the first trade, took a second one, and then dubbed". Mine does not: §5 is ONE trade
+      per day. **This is a change to §5 and can only be made in `/review`, in writing,
+      between sessions.** → `risk/risk-rules.md` §5
+- [ ] **Is the 5M gap fill part of my entry sequence**, or is my 1M BOS sequence a different
+      model that should not be blended with it? → `setups/a-plus.md`
+- [ ] **Was my 2026-08-31 SPX500 short my own idea or taken from this stream?**
+      `no-trade-conditions.md` has an unanswered prompt: *"Trade idea came from someone
+      else's chart or a Discord/Twitter post?"* If the answer is "from the stream", that
+      prompt becomes a real box on the no-trade list. → `setups/no-trade-conditions.md`
+
+<!-- NOT ANSWERED BY THE STREAM, despite being asked in his chat five times: -->
+<!-- the stop placement rule. He never states it. The biggest gap in this repo -->
+<!-- will not be filled from this source. -->
+
+---
+
 ## GAP AUDIT — 2026-08-26
 
 **Findings from auditing the repo against my own style: one trade a day, NY open only,
