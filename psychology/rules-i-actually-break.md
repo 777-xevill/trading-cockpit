@@ -39,6 +39,10 @@
 | 2026-09-01 | **No `/premarket`, no journal file, no `/checktrade` before entry** | plan stated to Claude only after the trade closed | **(+) +1.50R** |
 | 2026-09-01 | Stop and target with no written rule | — | (same trade) |
 | 2026-09-01 | §3 — the `/review` that was the condition of returning is still not run | — | (outstanding since 08-26) |
+| 2026-09-02 | **No `/premarket`, no journal file, no `/checktrade` — AFTER being told directly at 15:00 NY** | traded instead of running it | **(+) +2.17R** |
+| 2026-09-02 | Stop and target with no written rule | — | (same trade) |
+| 2026-09-02 | Session window unverifiable — "Latest I may enter" still `TODO` | — | (same trade) |
+| 2026-09-02 | §3 — the `/review` that was the condition of returning is still not run | — | (outstanding since 08-26) |
 
 <!-- Rows for 2026-08-27 and 2026-08-28 were added on 2026-08-31, when those two -->
 <!-- trades were reconciled out of the xetrade app and into this repo. They had  -->
@@ -52,23 +56,34 @@
 
 | Rule | Times broken | Total cost |
 |---|---|---|
-| **No journal file / no `/checktrade` before entry** | **5 of 5 trades** | +0.54R · +$199 |
-| **Stop and target placed with no written rule** | **5 of 5 trades** | (same trades) |
+| **No journal file / no `/checktrade` before entry** | **6 of 6 trades** | **+2.71R · +$1,274** |
+| **Stop and target placed with no written rule** | **6 of 6 trades** | (same trades) |
 | **§3 — not satisfied: 2 trades inside the shutdown, then a return without the review** | **3** | **+0.04R · but −$55** |
 | §1 — oversized position | 1 | 1.06R risked, −$530 |
 | no-trade-conditions — chart prep incomplete | 1 | −1.00R |
 
 ### The two numbers that matter on this page
 
-**Zero of five logged trades followed the rules.** Not "mostly followed" — zero.
+**Zero of six logged trades followed the rules.** Not "mostly followed" — zero.
 Every trade in the record is on this page.
 
-**BOTH WINNERS ARE ON THIS PAGE, AND THE PAGE IS NOW PROFITABLE: +0.54R, +$199.**
-That is the thing this file was built to catch. 08-27 paid $950 for trading through a
-weekly stop. 09-01 paid +1.50R for trading with no journal and no `/checktrade`. Rule 1
-at the top of this file says a profitable rule-break is the most expensive entry here.
-There are two of them now, and together they have made the whole record look like it
-works.
+**ALL THREE WINNERS ARE ON THIS PAGE, AND THE PAGE IS NOW UP +2.71R / +$1,274.**
+
+| Winner | What was broken | Paid |
+|---|---|---|
+| 08-27 | Traded through a weekly stop (§3) | **+$950** |
+| 09-01 | No `/premarket`, no journal, no `/checktrade` | **+1.50R** |
+| 09-02 | Same three — **after being told directly to run `/premarket`** | **+2.17R** |
+
+Rule 1 at the top of this file: *a profitable rule-break is the most expensive entry
+here, because it is the one that teaches me to do it again.* There are three now, and
+together they have taken the entire record positive. Every number that makes this look
+like a working system was produced by breaking the system.
+
+**The read and the process are separate, and only one is improving.** Six trades show six
+different R:R ratios, none clustered on the §10 floor, and a stop that got 40% tighter
+and won twice. That is real. None of it is written down, and none of it was checked
+against anything before the money went on.
 
 **§3 has failed three times running and is net POSITIVE in R (+0.04R) while
 being net NEGATIVE in dollars (−$55).** That gap exists because the 08-28 trade
