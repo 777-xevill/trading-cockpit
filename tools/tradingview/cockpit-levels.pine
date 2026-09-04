@@ -28,6 +28,9 @@
 //   * Blue/Black structural high and low on the chart timeframe
 //   * Forward-candle interaction: a level that gets wicked is greyed and
 //     stops extending, because it is no longer fresh liquidity
+//   * Fresh levels project FORWARD (right edge by default) so a level created
+//     near the current bar is readable instead of a stub. Display only —
+//     projecting a line forward does not make a stale level fresh again.
 //
 // NOT IMPLEMENTED, ON PURPOSE
 //   * 4H highs/lows — my rule is "visible highs and lows from the current
@@ -63,6 +66,12 @@ sKeep = input.int(3, "Untouched levels to keep", minval = 1, maxval = 20, group 
 gW = "Execution window"
 wShow = input.bool(true, "Highlight 09:40-09:45", group = gW)
 
+gA = "Level appearance"
+lnWidth  = input.int(2, "Line width", minval = 1, maxval = 5, group = gA)
+projMode = input.string("Right edge", "Extend fresh levels", options = ["Right edge", "Fixed bars", "Current bar"], group = gA, tooltip = "Display only. A level that has been hit always freezes where it was hit — that is the forward-candle rule, not a display setting.")
+projBars = input.int(30, "…if Fixed bars, how many", minval = 1, group = gA)
+txtSize  = input.string("small", "Label size", options = ["tiny", "small", "normal", "large"], group = gA)
+
 gC = "Colours"
 cAsia   = input.color(color.new(color.orange, 0), "Asia",         group = gC)
 cLondon = input.color(color.new(color.blue,   0), "London",       group = gC)
@@ -71,6 +80,15 @@ cLo     = input.color(color.new(color.green,  0), "Structure lo", group = gC)
 cHit    = input.color(color.new(color.gray,  55), "Hit / stale",  group = gC)
 cVert   = input.color(color.new(color.gray,  40), "Verticals",    group = gC)
 cWin    = input.color(color.new(color.teal,  85), "Window",       group = gC)
+
+// ─────────────────────────────────────────────────────────── appearance
+labSize = txtSize == "tiny" ? size.tiny : txtSize == "small" ? size.small : txtSize == "normal" ? size.normal : size.large
+lnExt   = projMode == "Right edge" ? extend.right : extend.none
+
+// Right-hand end of a FRESH level. "Right edge" rides the chart edge via
+// extend.right, so x2 only has to travel for the fixed-bar projection.
+barMs  = timeframe.in_seconds() * 1000
+rightX = projMode == "Fixed bars" ? time + projBars * barMs : time
 
 // ─────────────────────────────────────────────────────────── clock
 mins = hour(time, TZ) * 60 + minute(time, TZ)
@@ -120,22 +138,22 @@ if rAsia
         label.delete(aLoT)
         aHi := high
         aLo := low
-        aHiL := line.new(time, aHi, time, aHi, xloc = xloc.bar_time, color = cAsia)
-        aLoL := line.new(time, aLo, time, aLo, xloc = xloc.bar_time, color = cAsia)
-        aHiT := label.new(time, aHi, "Asia High", xloc = xloc.bar_time, style = label.style_label_left, color = color.new(cAsia, 88), textcolor = cAsia, size = size.tiny)
-        aLoT := label.new(time, aLo, "Asia Low", xloc = xloc.bar_time, style = label.style_label_left, color = color.new(cAsia, 88), textcolor = cAsia, size = size.tiny)
+        aHiL := line.new(time, aHi, time, aHi, xloc = xloc.bar_time, color = cAsia, width = lnWidth, extend = lnExt)
+        aLoL := line.new(time, aLo, time, aLo, xloc = xloc.bar_time, color = cAsia, width = lnWidth, extend = lnExt)
+        aHiT := label.new(time, aHi, "Asia High", xloc = xloc.bar_time, style = label.style_label_left, color = color.new(cAsia, 88), textcolor = cAsia, size = labSize)
+        aLoT := label.new(time, aLo, "Asia Low", xloc = xloc.bar_time, style = label.style_label_left, color = color.new(cAsia, 88), textcolor = cAsia, size = labSize)
     else if inAsia and not na(aHiL)
         aHi := math.max(aHi, high)
         aLo := math.min(aLo, low)
     if not na(aHiL)
         line.set_y1(aHiL, aHi)
         line.set_y2(aHiL, aHi)
-        line.set_x2(aHiL, time)
+        line.set_x2(aHiL, rightX)
         line.set_y1(aLoL, aLo)
         line.set_y2(aLoL, aLo)
-        line.set_x2(aLoL, time)
-        label.set_xy(aHiT, time, aHi)
-        label.set_xy(aLoT, time, aLo)
+        line.set_x2(aLoL, rightX)
+        label.set_xy(aHiT, rightX, aHi)
+        label.set_xy(aLoT, rightX, aLo)
 
 // ─────────────────────────────────────────────────────────── London range
 var float lHi  = na
@@ -153,22 +171,22 @@ if rLondon
         label.delete(lLoT)
         lHi := high
         lLo := low
-        lHiL := line.new(time, lHi, time, lHi, xloc = xloc.bar_time, color = cLondon)
-        lLoL := line.new(time, lLo, time, lLo, xloc = xloc.bar_time, color = cLondon)
-        lHiT := label.new(time, lHi, "London High", xloc = xloc.bar_time, style = label.style_label_left, color = color.new(cLondon, 88), textcolor = cLondon, size = size.tiny)
-        lLoT := label.new(time, lLo, "London Low", xloc = xloc.bar_time, style = label.style_label_left, color = color.new(cLondon, 88), textcolor = cLondon, size = size.tiny)
+        lHiL := line.new(time, lHi, time, lHi, xloc = xloc.bar_time, color = cLondon, width = lnWidth, extend = lnExt)
+        lLoL := line.new(time, lLo, time, lLo, xloc = xloc.bar_time, color = cLondon, width = lnWidth, extend = lnExt)
+        lHiT := label.new(time, lHi, "London High", xloc = xloc.bar_time, style = label.style_label_left, color = color.new(cLondon, 88), textcolor = cLondon, size = labSize)
+        lLoT := label.new(time, lLo, "London Low", xloc = xloc.bar_time, style = label.style_label_left, color = color.new(cLondon, 88), textcolor = cLondon, size = labSize)
     else if inLondon and not na(lHiL)
         lHi := math.max(lHi, high)
         lLo := math.min(lLo, low)
     if not na(lHiL)
         line.set_y1(lHiL, lHi)
         line.set_y2(lHiL, lHi)
-        line.set_x2(lHiL, time)
+        line.set_x2(lHiL, rightX)
         line.set_y1(lLoL, lLo)
         line.set_y2(lLoL, lLo)
-        line.set_x2(lLoL, time)
-        label.set_xy(lHiT, time, lHi)
-        label.set_xy(lLoT, time, lLo)
+        line.set_x2(lLoL, rightX)
+        label.set_xy(lHiT, rightX, lHi)
+        label.set_xy(lLoT, rightX, lLo)
 
 // ══════════════════════════════════════════════════════════════════════════
 // BLUE / BLACK STRUCTURE
@@ -200,8 +218,8 @@ pairHi  = math.max(high, high[1])
 pairLo  = math.min(low, low[1])
 
 addLvl(array<Lvl> arr, float px, color c, string txt) =>
-    ln = line.new(time[1], px, time, px, xloc = xloc.bar_time, color = c, width = 1)
-    lb = label.new(time, px, txt, xloc = xloc.bar_time, style = label.style_label_left, color = color.new(c, 90), textcolor = c, size = size.tiny)
+    ln = line.new(time[1], px, rightX, px, xloc = xloc.bar_time, color = c, width = lnWidth, extend = lnExt)
+    lb = label.new(rightX, px, txt, xloc = xloc.bar_time, style = label.style_label_left, color = color.new(c, 90), textcolor = c, size = labSize)
     array.push(arr, Lvl.new(px, ln, lb, false))
     if array.size(arr) > sKeep
         Lvl gone = array.shift(arr)
@@ -218,26 +236,34 @@ if sShow and array.size(hiLvls) > 0
         Lvl L = array.get(hiLvls, i)
         if not L.hit and high >= L.price
             L.hit := true
+            // Freeze at the candle that took it: no projection, no right edge.
+            line.set_extend(L.ln, extend.none)
+            line.set_x2(L.ln, time)
             line.set_color(L.ln, cHit)
             line.set_style(L.ln, line.style_dashed)
+            label.set_xy(L.lb, time, L.price)
             label.set_text(L.lb, "H hit")
             label.set_textcolor(L.lb, cHit)
         if not L.hit
-            line.set_x2(L.ln, time)
-            label.set_x(L.lb, time)
+            line.set_x2(L.ln, rightX)
+            label.set_x(L.lb, rightX)
 
 if sShow and array.size(loLvls) > 0
     for i = 0 to array.size(loLvls) - 1
         Lvl L = array.get(loLvls, i)
         if not L.hit and low <= L.price
             L.hit := true
+            // Freeze at the candle that took it: no projection, no right edge.
+            line.set_extend(L.ln, extend.none)
+            line.set_x2(L.ln, time)
             line.set_color(L.ln, cHit)
             line.set_style(L.ln, line.style_dashed)
+            label.set_xy(L.lb, time, L.price)
             label.set_text(L.lb, "L hit")
             label.set_textcolor(L.lb, cHit)
         if not L.hit
-            line.set_x2(L.ln, time)
-            label.set_x(L.lb, time)
+            line.set_x2(L.ln, rightX)
+            label.set_x(L.lb, rightX)
 
 // ─────────────────────────────────────────────────────────── window
 bgcolor(wShow and inWindow ? cWin : na, title = "09:40-09:45 execution window")
