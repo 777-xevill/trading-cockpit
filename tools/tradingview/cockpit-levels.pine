@@ -66,11 +66,9 @@ sKeep = input.int(3, "Untouched levels to keep", minval = 1, maxval = 20, group 
 gW = "Execution window"
 wShow = input.bool(true, "Highlight 09:40-09:45", group = gW)
 
-gA = "Level appearance"
-lnWidth  = input.int(2, "Line width", minval = 1, maxval = 5, group = gA)
+gA = "Level projection"
 projMode = input.string("Right edge", "Extend fresh levels", options = ["Right edge", "Fixed bars", "Current bar"], group = gA, tooltip = "Display only. A level that has been hit always freezes where it was hit — that is the forward-candle rule, not a display setting.")
 projBars = input.int(30, "…if Fixed bars, how many", minval = 1, group = gA)
-txtSize  = input.string("small", "Label size", options = ["tiny", "small", "normal", "large"], group = gA)
 
 gC = "Colours"
 cAsia   = input.color(color.new(color.orange, 0), "Asia",         group = gC)
@@ -81,9 +79,8 @@ cHit    = input.color(color.new(color.gray,  55), "Hit / stale",  group = gC)
 cVert   = input.color(color.new(color.gray,  40), "Verticals",    group = gC)
 cWin    = input.color(color.new(color.teal,  85), "Window",       group = gC)
 
-// ─────────────────────────────────────────────────────────── appearance
-labSize = txtSize == "tiny" ? size.tiny : txtSize == "small" ? size.small : txtSize == "normal" ? size.normal : size.large
-lnExt   = projMode == "Right edge" ? extend.right : extend.none
+// ─────────────────────────────────────────────────────────── projection
+lnExt = projMode == "Right edge" ? extend.right : extend.none
 
 // Right-hand end of a FRESH level. "Right edge" rides the chart edge via
 // extend.right, so x2 only has to travel for the fixed-bar projection.
@@ -138,10 +135,10 @@ if rAsia
         label.delete(aLoT)
         aHi := high
         aLo := low
-        aHiL := line.new(time, aHi, time, aHi, xloc = xloc.bar_time, color = cAsia, width = lnWidth, extend = lnExt)
-        aLoL := line.new(time, aLo, time, aLo, xloc = xloc.bar_time, color = cAsia, width = lnWidth, extend = lnExt)
-        aHiT := label.new(time, aHi, "Asia High", xloc = xloc.bar_time, style = label.style_label_left, color = color.new(cAsia, 88), textcolor = cAsia, size = labSize)
-        aLoT := label.new(time, aLo, "Asia Low", xloc = xloc.bar_time, style = label.style_label_left, color = color.new(cAsia, 88), textcolor = cAsia, size = labSize)
+        aHiL := line.new(time, aHi, time, aHi, xloc = xloc.bar_time, color = cAsia, extend = lnExt)
+        aLoL := line.new(time, aLo, time, aLo, xloc = xloc.bar_time, color = cAsia, extend = lnExt)
+        aHiT := label.new(time, aHi, "Asia High", xloc = xloc.bar_time, style = label.style_label_left, color = color.new(cAsia, 88), textcolor = cAsia, size = size.tiny)
+        aLoT := label.new(time, aLo, "Asia Low", xloc = xloc.bar_time, style = label.style_label_left, color = color.new(cAsia, 88), textcolor = cAsia, size = size.tiny)
     else if inAsia and not na(aHiL)
         aHi := math.max(aHi, high)
         aLo := math.min(aLo, low)
@@ -171,10 +168,10 @@ if rLondon
         label.delete(lLoT)
         lHi := high
         lLo := low
-        lHiL := line.new(time, lHi, time, lHi, xloc = xloc.bar_time, color = cLondon, width = lnWidth, extend = lnExt)
-        lLoL := line.new(time, lLo, time, lLo, xloc = xloc.bar_time, color = cLondon, width = lnWidth, extend = lnExt)
-        lHiT := label.new(time, lHi, "London High", xloc = xloc.bar_time, style = label.style_label_left, color = color.new(cLondon, 88), textcolor = cLondon, size = labSize)
-        lLoT := label.new(time, lLo, "London Low", xloc = xloc.bar_time, style = label.style_label_left, color = color.new(cLondon, 88), textcolor = cLondon, size = labSize)
+        lHiL := line.new(time, lHi, time, lHi, xloc = xloc.bar_time, color = cLondon, extend = lnExt)
+        lLoL := line.new(time, lLo, time, lLo, xloc = xloc.bar_time, color = cLondon, extend = lnExt)
+        lHiT := label.new(time, lHi, "London High", xloc = xloc.bar_time, style = label.style_label_left, color = color.new(cLondon, 88), textcolor = cLondon, size = size.tiny)
+        lLoT := label.new(time, lLo, "London Low", xloc = xloc.bar_time, style = label.style_label_left, color = color.new(cLondon, 88), textcolor = cLondon, size = size.tiny)
     else if inLondon and not na(lHiL)
         lHi := math.max(lHi, high)
         lLo := math.min(lLo, low)
@@ -218,8 +215,8 @@ pairHi  = math.max(high, high[1])
 pairLo  = math.min(low, low[1])
 
 addLvl(array<Lvl> arr, float px, color c, string txt) =>
-    ln = line.new(time[1], px, rightX, px, xloc = xloc.bar_time, color = c, width = lnWidth, extend = lnExt)
-    lb = label.new(rightX, px, txt, xloc = xloc.bar_time, style = label.style_label_left, color = color.new(c, 90), textcolor = c, size = labSize)
+    ln = line.new(time[1], px, rightX, px, xloc = xloc.bar_time, color = c, extend = lnExt)
+    lb = label.new(rightX, px, txt, xloc = xloc.bar_time, style = label.style_label_left, color = color.new(c, 90), textcolor = c, size = size.tiny)
     array.push(arr, Lvl.new(px, ln, lb, false))
     if array.size(arr) > sKeep
         Lvl gone = array.shift(arr)
