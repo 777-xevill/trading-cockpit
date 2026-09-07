@@ -59,6 +59,15 @@ Rules for working through this file:
 - [ ] Does a losing day of less than 1R count toward the 3-day weekly limit? → §3
 - [ ] Is XAU/USD a separate bucket from the index group, in my experience? → §7
 - [ ] Is 1.5R the minimum for both a-plus and b-grade, or is a-plus higher? → §10
+- [ ] **Stated goal, 2026-09-07: "pass the evaluation in 2 trades."** Not yet a rule — no per-trade
+      risk % or R:R attached, so it is not checkable by `/checktrade`. BLOCKED on the profit target
+      below (see "profit target ÷ 2R" note in the Prop Firm section — that division is the actual
+      arithmetic this goal needs). Separately unresolved: my own words when asked what happens if
+      trade 2 doesn't pass were *"it means account blow, that's it."* §1 and §3 as currently written
+      make that impossible at the fixed 1% risk — the account is capped at -$1,500 (eval) / -$750
+      (funded) over three losing days before a hard stop. "2 losses blows it" only becomes true by
+      abandoning the fixed 1% for these two trades. Confirm that's the actual intent, and if so, the
+      new per-trade risk % — one number, not a range — before this becomes a rule instead of a mood.
 
 ## THEN — PROP FIRM (30 unverified values)
 
