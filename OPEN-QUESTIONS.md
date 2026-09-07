@@ -59,15 +59,20 @@ Rules for working through this file:
 - [ ] Does a losing day of less than 1R count toward the 3-day weekly limit? → §3
 - [ ] Is XAU/USD a separate bucket from the index group, in my experience? → §7
 - [ ] Is 1.5R the minimum for both a-plus and b-grade, or is a-plus higher? → §10
-- [ ] **Stated goal, 2026-09-07: "pass the evaluation in 2 trades."** Not yet a rule — no per-trade
-      risk % or R:R attached, so it is not checkable by `/checktrade`. BLOCKED on the profit target
-      below (see "profit target ÷ 2R" note in the Prop Firm section — that division is the actual
-      arithmetic this goal needs). Separately unresolved: my own words when asked what happens if
-      trade 2 doesn't pass were *"it means account blow, that's it."* §1 and §3 as currently written
-      make that impossible at the fixed 1% risk — the account is capped at -$1,500 (eval) / -$750
-      (funded) over three losing days before a hard stop. "2 losses blows it" only becomes true by
-      abandoning the fixed 1% for these two trades. Confirm that's the actual intent, and if so, the
-      new per-trade risk % — one number, not a range — before this becomes a rule instead of a mood.
+- [ ] **Stated goal, 2026-09-07: "pass the evaluation in 2 trades."** Not yet a rule — still not
+      checkable by `/checktrade`. Progress so far:
+      - [x] Max R:R for this rule — **2** (confirmed 2026-09-07; matches everything logged so far,
+            1.50-2.31)
+      - [ ] **BLOCKED: profit target %**, from `risk/prop-firm-rules.md` (still unverified). The math
+            that's blocked on it: at the current fixed 1% risk (§1) and R:R capped at 2, two PERFECT
+            winning trades = **4% total, best case.** If the real target is 8% or 10% — typical for
+            a prop firm evaluation — 2 trades cannot pass at 1% risk, full stop, no exceptions. Either
+            the target is lower than 4%, or the per-trade risk % has to rise above 1% for this
+            specific goal.
+      - [ ] Separately unresolved: asked what happens if trade 2 fails, the answer was *"it means
+            account blow, that's it."* §1/§3 as written make that impossible at fixed 1% risk (worst
+            week capped at -$1,500 eval / -$750 funded before a hard stop). Confirm this is
+            intentional, and if so, the new per-trade risk % — one number, not a range.
 
 ## THEN — PROP FIRM (30 unverified values)
 
