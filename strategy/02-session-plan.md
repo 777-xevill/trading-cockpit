@@ -104,8 +104,7 @@ Then run `/premarket` to set the risk budget and write today's journal.
 
 **New York open only.** London and Asia are marked for liquidity but are not execution sessions.
 
-<!-- TODO: ask me — confirm. The strategy document describes only a New York execution model, -->
-<!-- but never explicitly says I never execute in London or Asia. Silence is not a rule. -->
+**CONFIRMED 2026-09-28:** one trade, New York session, every day. No exceptions.
 
 ---
 

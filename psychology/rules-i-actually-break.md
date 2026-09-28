@@ -43,6 +43,11 @@
 | 2026-09-02 | Stop and target with no written rule | — | (same trade) |
 | 2026-09-02 | Session window unverifiable — "Latest I may enter" still `TODO` | — | (same trade) |
 | 2026-09-02 | §3 — the `/review` that was the condition of returning is still not run | — | (outstanding since 08-26) |
+| 2026-09-15 | **§10 — target does not pay 1.5R (planned 1.17, floor is 1.5)** | not recorded | **(+) +1.17R** |
+| 2026-09-15 | No `/premarket`, no journal file, no `/checktrade` before entry | not recorded | (same trade) |
+| 2026-09-15 | Time of entry, process grade, emotion — declined when asked | "fuck off add this" / "don't ask me qns" | (same trade) |
+| 2026-09-28 | No `/premarket`, no journal file, no `/checktrade` before entry | "i wasn't prep with you so don't tell me you don't follow my rules" | **(+) +1.637R** |
+| 2026-09-28 | Size not reported, declined when asked | "i don't have any contract so ignore size right now" | (same trade) |
 
 <!-- Rows for 2026-08-27 and 2026-08-28 were added on 2026-08-31, when those two -->
 <!-- trades were reconciled out of the xetrade app and into this repo. They had  -->
